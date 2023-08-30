@@ -56,8 +56,8 @@ let rodasGeometry = new THREE.TorusGeometry(1, 0.4, 12, 48);
 let rd1 = new THREE.Mesh(rodasGeometry, materialPneu);
 let rd2 = new THREE.Mesh(rodasGeometry, materialPneu);
 
-rd1.position.set(0.0, 3.5, 0.0);
-rd2.position.set(0.0, -3.5, 0.0);
+// rd1.position.set(0.0, 3.5, 0.0);
+// rd2.position.set(0.0, -3.5, 0.0);
 
 rd1.rotateX(1.5708);
 rd2.rotateX(1.5708);
@@ -86,8 +86,6 @@ eixoDianteiro.position.set(4, -2.0, 0);
 eixoDianteiro.rotateX(1.5708);
 
 scene.add(eixoDianteiro);
-eixoDianteiro.add(rd1);
-eixoDianteiro.add(rd2);
 
 
 //#################################################--EIXOS E RODAS TRASEIRA--###############################################
@@ -122,6 +120,26 @@ eixoTraseiro.rotateX(1.5708);
 scene.add(eixoTraseiro);
 eixoTraseiro.add(rt1);
 eixoTraseiro.add(rt2);
+
+//##########################################--ESFERAS DOS EIXOS--###########################################
+let esferaEixoGeometry = new THREE.SphereGeometry(0.2, 64, 32);
+let esferaEixo1 = new THREE.Mesh(esferaEixoGeometry, materialFarois);
+let esferaEixo2 = new THREE.Mesh(esferaEixoGeometry, materialFarois);
+
+esferaEixo1.position.set(0.0, 3.5, 0.0);
+esferaEixo2.position.set(0.0, -3.5, 0.0);
+
+scene.add(esferaEixo1);
+scene.add(esferaEixo2);
+
+eixoDianteiro.add(esferaEixo1);
+eixoDianteiro.add(esferaEixo2);
+
+esferaEixo1.add(rd1);
+esferaEixo2.add(rd2);
+
+
+
 
 //#################################################-- FAROIS DO CARRO --###############################################
 let esferaGeometry = new THREE.SphereGeometry(0.5, 64, 32);
@@ -158,73 +176,102 @@ function keyboardUpdate() {
 
     if (keyboard.pressed("X")) {
 
-        calotaRd1.rotateZ(1);
-        calotaRd2.rotateZ(1);
-        calotaRt1.rotateZ(1);
-        calotaRt2.rotateZ(1);
+        rd1.rotateZ(moveDistance);
+        rd2.rotateZ(moveDistance);
+        rt1.rotateZ(moveDistance);
+        rt2.rotateZ(moveDistance);
 
         if (moveDistance < velMaxima) {
             moveDistance += 0.003;
         }
 
-        console.log(moveDistance);
-        console.log("\nClock delta: " + clock.getDelta());
-        esqueletoCarro.translateX(moveDistance);
+        console.log(Math.round(moveDistance * 100) / 100);
+        // console.log("\nClock delta: " + clock.getDelta());
+        esqueletoCarro.translateX(Math.round(moveDistance * 100) / 100);
 
         if (keyboard.pressed("left")) {
-            esqueletoCarro.rotateY(0.05);
-            esqueletoCarro.rotateY(0.05);
+            esqueletoCarro.rotateY(moveDistance*0.05);
+            esqueletoCarro.rotateY(moveDistance*0.05);
         } else if (keyboard.pressed("right")) {
-            esqueletoCarro.rotateY(-0.05);
-            esqueletoCarro.rotateY(-0.05);
+            esqueletoCarro.rotateY(-moveDistance*0.05);
+            esqueletoCarro.rotateY(-moveDistance*0.05);
         }
     } else {
         if(moveDistance > 0){
             moveDistance -= 0.005;
-            esqueletoCarro.translateX(moveDistance);
+            esqueletoCarro.translateX(Math.round(moveDistance * 100) / 100);
+            rd1.rotateZ(moveDistance);
+            rd2.rotateZ(moveDistance);
+            rt1.rotateZ(moveDistance);
+            rt2.rotateZ(moveDistance);
             
             if (keyboard.pressed("left")) {
-                esqueletoCarro.rotateY(0.05);
-                esqueletoCarro.rotateY(0.05);
+                esqueletoCarro.rotateY(moveDistance*0.05);
+                esqueletoCarro.rotateY(moveDistance*0.05);
             } else if (keyboard.pressed("right")) {
-                esqueletoCarro.rotateY(-0.05);
-                esqueletoCarro.rotateY(-0.05);
+                esqueletoCarro.rotateY(-moveDistance*0.05);
+                esqueletoCarro.rotateY(-moveDistance*0.05);
             }
         }
-        
+        console.log(Math.round(moveDistance * 100) / 100);
     }
     if (keyboard.pressed("left")) {
-        if (Math.round(rd2.rotation.y * 100) / 100 <= 0.6 && Math.round(rd2.rotation.y * 100) / 100 >= -0.6) {
-            rd1.rotateY(-0.1);
-            rd2.rotateY(-0.1);
+        if (Math.round(esferaEixo2.rotation.z * 100) / 100 <= 0.6 && Math.round(esferaEixo2.rotation.z * 100) / 100 >= -0.6) {
+            esferaEixo1.rotateZ(-moveDistance*0.05);
+            esferaEixo2.rotateZ(-moveDistance*0.05);
         } else {
-            rd1.rotation.y = -0.6;
-            rd2.rotation.y = -0.6;
+            esferaEixo1.rotation.z = -0.6;
+            esferaEixo2.rotation.z = -0.6;
         }
     }
     if (keyboard.pressed("right")) {
-        if (Math.round(rd2.rotation.y * 100) / 100 <= 0.6 && Math.round(rd2.rotation.y * 100) / 100 >= -0.6) {
-            rd1.rotateY(0.1);
-            rd2.rotateY(0.1);
+        if (Math.round(esferaEixo2.rotation.z * 100) / 100 <= 0.6 && Math.round(esferaEixo2.rotation.z * 100) / 100 >= -0.6) {
+            esferaEixo1.rotateZ(moveDistance*0.05);
+            esferaEixo2.rotateZ(moveDistance*0.05);
         } else {
-            rd1.rotation.y = 0.6;
-            rd2.rotation.y = 0.6;
+            esferaEixo1.rotation.z = 0.6;
+            esferaEixo2.rotation.z = 0.6;
         }
     }
     if (keyboard.pressed("down")) {
-        calotaRd1.rotateZ(-1);
-        calotaRd2.rotateZ(-1);
-        calotaRt1.rotateZ(-1);
-        calotaRt2.rotateZ(-1);
+        rd1.rotateZ(-1);
+        rd2.rotateZ(-1);
+        rt1.rotateZ(-1);
+        rt2.rotateZ(-1);
 
-        esqueletoCarro.translateX(-moveDistance);
+        if (Math.round(moveDistance * 100) / 100 > 0) {
+            moveDistance -= 0.003;
+            esqueletoCarro.translateX(Math.round(moveDistance * 100) / 100);
+        }else if(Math.round(moveDistance * 100) / 100 <= 0){
+            if(Math.round(moveDistance * 100) / 100 > -velMaxima)
+                moveDistance -= 0.003;
+            esqueletoCarro.translateX(Math.round(moveDistance * 100) / 100);
+            if (keyboard.pressed("left")) {
+                esqueletoCarro.rotateY(-moveDistance*0.05);
+                esqueletoCarro.rotateY(-moveDistance*0.05);
+            } else if (keyboard.pressed("right")) {
+                esqueletoCarro.rotateY(moveDistance*0.05);
+                esqueletoCarro.rotateY(moveDistance*0.05);
+            }
+        }
+    }else{//quando o cara nao apertar a seta para tras, a velocidade tem que aumentar linearmente
+        if(Math.round(moveDistance * 100) / 100 < 0){
+            moveDistance += 0.003;
 
-        if (keyboard.pressed("left")) {
-            esqueletoCarro.rotateY(-0.05);
-            esqueletoCarro.rotateY(-0.05);
-        } else if (keyboard.pressed("right")) {
-            esqueletoCarro.rotateY(0.05);
-            esqueletoCarro.rotateY(0.05);
+            esqueletoCarro.translateX(Math.round(moveDistance * 100) / 100);
+
+            rd1.rotateZ(-1);
+            rd2.rotateZ(-1);
+            rt1.rotateZ(-1);
+            rt2.rotateZ(-1);
+
+            if (keyboard.pressed("left")) {
+                esqueletoCarro.rotateY(-moveDistance*0.05);
+                esqueletoCarro.rotateY(-moveDistance*0.05);
+            } else if (keyboard.pressed("right")) {
+                esqueletoCarro.rotateY(moveDistance*0.05);
+                esqueletoCarro.rotateY(moveDistance*0.05);
+            }
         }
     }
 
