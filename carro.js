@@ -3,10 +3,11 @@ import KeyboardState from './libs/util/KeyboardState.js';
 
 export class Carro {
 
-    constructor(scene) {
+    constructor(scene, camera) {
         // var speed = 10;
         this.moveDistance = 0.0;
         this.velMaxima = 1.5;
+        this.camera = camera;
 
         // To use the keyboard
         this.keyboard = new KeyboardState();
@@ -147,9 +148,8 @@ export class Carro {
 
             if (this.keyboard.pressed("left")) {
                 this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
+                
             } else if (this.keyboard.pressed("right")) {
-                this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
                 this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
             }
         } else {
@@ -163,10 +163,10 @@ export class Carro {
 
                 if (this.keyboard.pressed("left")) {
                     this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                    this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
+                    
                 } else if (this.keyboard.pressed("right")) {
                     this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
-                    this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
+                    
                 }
             }
             console.log(Math.round(this.moveDistance * 100) / 100);
@@ -204,10 +204,10 @@ export class Carro {
                 this.esqueletoCarro.translateX(Math.round(this.moveDistance * 100) / 100);
                 if (this.keyboard.pressed("left")) {
                     this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
-                    this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
+                    
                 } else if (this.keyboard.pressed("right")) {
                     this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                    this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
+                    
                 }
             }
         } else {//quando o cara nao apertar a seta para tras, a velocidade tem que aumentar linearmente
@@ -223,10 +223,10 @@ export class Carro {
 
                 if (this.keyboard.pressed("left")) {
                     this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
-                    this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
+                    
                 } else if (this.keyboard.pressed("right")) {
                     this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                    this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
+                    
                 }
             }
         }
