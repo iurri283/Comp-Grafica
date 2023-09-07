@@ -15,7 +15,7 @@ export class Pista {
             for (let j = 0; j < 5; j++) {
                 
                 if((i!=1 || j!=1) && (i!=1 || j!=2) && (i!=2 || j!=2) && (i!=2 || j!=1) && (i!=1 || j!=3) && (i!=3 || j!=1) && (i!=2 || j!=3) && (i!=3 || j!=2) && (i!=3  || j!=3)){
-                    console.log([i * 100, 0, j * 100]);
+                    // console.log([i * 100, 0, j * 100]);
                     if(i==2 && j==0){
                         this.pistaFormada[i] = new THREE.Mesh(this.cubeGeometry, this.materialPistaInicio);
                     }else{
@@ -35,7 +35,7 @@ export class Pista {
                    [400,0,100], [400,0,200],[400,0,300], [400, 0, 400]];
 
         for(let i=0; i<16;i++){
-            console.log(vet[i]);
+            // console.log(vet[i]);
             if(i==7){
                 this.pistaFormada[i] = new THREE.Mesh(this.cubeGeometry, this.materialPistaInicio);
             }else{
@@ -43,6 +43,19 @@ export class Pista {
             }
             this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
             this.scene.add(this.pistaFormada[i]);
+        }
+    }
+
+    removePista1(){
+        console.log(this.pistaFormada.length);
+        for(let i=0; i<this.pistaFormada.length;i++){
+            this.scene.remove(this.pistaFormada[i]);
+        }
+    }
+
+    removePista2(){
+        for(let i=0; i<this.pistaFormada.length;i++){
+            this.scene.remove(this.pistaFormada[i]);
         }
     }
 }

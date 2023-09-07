@@ -142,7 +142,7 @@ export class Carro {
                 this.moveDistance += 0.007;
             }
 
-            console.log(Math.round(this.moveDistance * 100) / 100);
+            // console.log(Math.round(this.moveDistance * 100) / 100);
             // console.log("\nClock delta: " + clock.getDelta());
             this.esqueletoCarro.translateX(Math.round(this.moveDistance * 100) / 100);
 
@@ -169,7 +169,7 @@ export class Carro {
                     
                 }
             }
-            console.log(Math.round(this.moveDistance * 100) / 100);
+            // console.log(Math.round(this.moveDistance * 100) / 100);
         }
         if (this.keyboard.pressed("left")) {
             if (Math.round(this.esferaEixo2.rotation.z * 100) / 100 <= 0.6 && Math.round(this.esferaEixo2.rotation.z * 100) / 100 >= -0.6) {
