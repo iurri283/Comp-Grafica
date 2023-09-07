@@ -116,7 +116,7 @@ export class Carro {
         //#################################################-- ESQUELETO DO CARRO --###############################################
         let cubeGeometry = new THREE.BoxGeometry(10, 4, 6.2);
         this.esqueletoCarro = new THREE.Mesh(cubeGeometry, materialEsqueletoCarro);
-        this.esqueletoCarro.position.set(200.0, 3.0, 0.0);
+        this.esqueletoCarro.position.set(200.0, 4.0, 0.0);
         // this.esqueletoCarro.rotateY(1.516);
 
         this.esqueletoCarro.add(eixoDianteiro);
@@ -132,7 +132,7 @@ export class Carro {
         this.keyboard.update();
 
         if (this.keyboard.pressed("X")) {
-
+            
             this.rd1.rotateZ(this.moveDistance);
             this.rd2.rotateZ(this.moveDistance);
             this.rt1.rotateZ(this.moveDistance);
@@ -230,5 +230,13 @@ export class Carro {
                 }
             }
         }
+    }
+
+    reset(){
+        this.moveDistance = 0;
+        this.esqueletoCarro.position.set(200,4,0);
+        this.esqueletoCarro.rotation.set(0,0,0);
+        this.esferaEixo1.rotation.z = 0;
+        this.esferaEixo2.rotation.z = 0;
     }
 }
