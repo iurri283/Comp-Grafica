@@ -107,16 +107,15 @@ function gameplay(){
         clock.start();
         inicio = 1;
     }
-    alternarCamera();
+    pista.inPista(carro.esqueletoCarro.position);
 }
 
 function render() {
-    gameplay();
-
     trackballControls.update();
     trackballControls.target.copy(carro.esqueletoCarro.position); // Camera following object
 
     alternarPista();
+    alternarCamera();
     
     camera.position.set(carro.esqueletoCarro.position.x-100, 50, carro.esqueletoCarro.position.z-100);
     // camera.position.copy(carro.esqueletoCarro.position+obj.position);
@@ -124,7 +123,8 @@ function render() {
     requestAnimationFrame(render); // Show events
 
     if(auxCam == 0){
-        renderer.render(scene, camera) // Render scene
+        renderer.render(scene, camera); // Render scene
+        gameplay();
         message.changeMessage("Tempo da volta: " + clock.getElapsedTime().toFixed(2)+ "  Tempo total: "+clock2.getElapsedTime().toFixed(2)+"\nVolta: ");
         carro.keyboardUpdate();
     }else if(auxCam == 1){

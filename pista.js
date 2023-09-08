@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+// import {abs} from 'math';
 
 export class Pista {
     constructor(scene) {
@@ -80,8 +81,8 @@ export class Pista {
     inPista(posicaoCarro){
         if(this.numeroPista == 1){
             for(let i=0; i<16;i++){
-                if(posicaoCarro  ){
-
+                if((posicaoCarro.x >= this.pistaFormada[i].position.x-50 && posicaoCarro.x <= this.pistaFormada[i].position.x+50) && (posicaoCarro.z >= this.pistaFormada[i].position.z-50 && posicaoCarro.z <= this.pistaFormada[i].position.z+50)){
+                    console.log("In Pist!");
                 }
             }
         }else if(this.numeroPista == 2){
