@@ -22,8 +22,9 @@ renderer = initRenderer();    // Init a basic renderer
 camera = new THREE.PerspectiveCamera( 45, window.innerWidth /  window.innerHeight, 0.1, 1000 );
 camera2 = initCamera(new THREE.Vector3(5,15,50));
 let keyboard = new KeyboardState();
-let clock = new THREE.Clock(0);
-let clock2 = new THREE.Clock(0);
+let tVolta = new THREE.Clock(0);
+let tTotal = new THREE.Clock(0);
+let voltas=0;
 
 var message = new SecondaryBox("");
 message.changeStyle("gray");
@@ -53,11 +54,6 @@ render();
 function showInformation() {
     // Use this to show information onscreen
     var controls = new InfoBox();
-
-    controls.add("TEMPO: "+clock.getElapsedTime());
-    controls.addParagraph();
-    controls.add("VOLTAS: ");
-    controls.addParagraph();
     controls.add("COMANDOS:");
     // controls.addParagraph();
     controls.add("X - acelera.");
@@ -95,7 +91,8 @@ function alternarCamera(){
         else if(auxCam == 1){
             pista.pista1();
             message.changeStyle("gray");
-            clock.elapsedTime = 0;
+            tVolta.elapsedTime = 0;
+            tTotal.elapsedTime = 0;
             auxCam = 0;
         } 
     }
@@ -104,10 +101,34 @@ function alternarCamera(){
 function gameplay(){
     keyboard.update();
     if(keyboard.pressed("X") && inicio == 0){
-        clock.start();
+        tTotal.start();
+        tVolta.start();
         inicio = 1;
     }
-    pista.inPista(carro.esqueletoCarro.position);
+    
+    //SE O CARRO SAIR DA PISTA
+    if(!pista.inPista(carro.esqueletoCarro.position)){
+        // console.log(carro.moveDistance);
+        if(carro.moveDistance > 0.8){
+            carro.moveDistance -= 0.05;
+        }
+    }
+
+    if(pista.volta()){
+        tVolta.elapsedTime = 0;
+        voltas+=1;
+        if(voltas == 1){
+            tVolta.elapsedTime = 0;
+            setTimeout(function(){
+                tVolta.elapsedTime = 0;
+                alert("O jogo terminou!\nTempo total: "+tTotal.elapsedTime.toFixed(2));
+                location.reload();
+            }, 100);
+            
+        }
+    }
+
+
 }
 
 function render() {
@@ -123,13 +144,15 @@ function render() {
     requestAnimationFrame(render); // Show events
 
     if(auxCam == 0){
+
         renderer.render(scene, camera); // Render scene
         gameplay();
-        message.changeMessage("Tempo da volta: " + clock.getElapsedTime().toFixed(2)+ "  Tempo total: "+clock2.getElapsedTime().toFixed(2)+"\nVolta: ");
+        message.changeMessage("Tempo da volta: " + tVolta.getElapsedTime().toFixed(2)+ "  Tempo total: "+tTotal.getElapsedTime().toFixed(2)+"\nVolta: "+voltas);
         carro.keyboardUpdate();
     }else if(auxCam == 1){
         renderer.render(scene, camera2) // Render scene
-        clock.stop();
+        tVolta.stop();
+        tTotal.stop();
         inicio=0;
     }
     

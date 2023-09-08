@@ -6,7 +6,7 @@ export class Carro {
     constructor(scene, camera) {
         // var speed = 10;
         this.moveDistance = 0.0;
-        this.velMaxima = 1.5;
+        this.velMaxima = 2.0;
         this.camera = camera;
 
         // To use the keyboard
@@ -14,11 +14,11 @@ export class Carro {
 
         let materialEixo, materialCalotas, materialPneu, materialFarois, materialEsqueletoCarro;
 
-        materialEixo = new THREE.MeshBasicMaterial({ color: 0x0000FF }); // create a basic material
-        materialCalotas = new THREE.MeshBasicMaterial({ color: 0xFFFF80 }); // create a basic material
-        materialPneu = new THREE.MeshBasicMaterial({ color: 0x000000 });
-        materialFarois = new THREE.MeshBasicMaterial({ color: 0xFFFF00 });
-        materialEsqueletoCarro = new THREE.MeshBasicMaterial({ color: 0x008000 });
+        materialEixo = new THREE.MeshPhongMaterial({ color: 0x0000FF }); // create a basic material
+        materialCalotas = new THREE.MeshPhongMaterial({ color: 0xFFFF80 }); // create a basic material
+        materialPneu = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        materialFarois = new THREE.MeshPhongMaterial({ color: 0xFFFF00 });
+        materialEsqueletoCarro = new THREE.MeshPhongMaterial({ color: 0x008000 });
 
         //#################################################-- EIXOS E RODAS DIANTEIROS --##############################
         // let axesHelper = new THREE.AxesHelper( 12 );
