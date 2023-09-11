@@ -125,14 +125,14 @@ export class Carro {
         this.esqueletoCarro.add(farol2);
 
         scene.add(this.esqueletoCarro);
-    }  
+    }
 
-//#####################################################################################################################
+    //#####################################################################################################################
     keyboardUpdate() {
         this.keyboard.update();
 
         if (this.keyboard.pressed("X")) {
-            
+
             this.rd1.rotateZ(this.moveDistance);
             this.rd2.rotateZ(this.moveDistance);
             this.rt1.rotateZ(this.moveDistance);
@@ -148,7 +148,7 @@ export class Carro {
 
             if (this.keyboard.pressed("left")) {
                 this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                
+
             } else if (this.keyboard.pressed("right")) {
                 this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
             }
@@ -163,30 +163,52 @@ export class Carro {
 
                 if (this.keyboard.pressed("left")) {
                     this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                    
+
                 } else if (this.keyboard.pressed("right")) {
                     this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
-                    
+
                 }
             }
             // console.log(Math.round(this.moveDistance * 100) / 100);
         }
         if (this.keyboard.pressed("left")) {
             if (Math.round(this.esferaEixo2.rotation.z * 100) / 100 <= 0.6 && Math.round(this.esferaEixo2.rotation.z * 100) / 100 >= -0.6) {
-                this.esferaEixo1.rotateZ(-this.moveDistance * 0.05);
-                this.esferaEixo2.rotateZ(-this.moveDistance * 0.05);
+                this.esferaEixo1.rotateZ(-1 * 0.05);
+                this.esferaEixo2.rotateZ(-1 * 0.05);
+
+                // this.esferaEixo1.rotateZ(-this.moveDistance * 0.05);
+                // this.esferaEixo2.rotateZ(-this.moveDistance * 0.05);
+
+                console.log(this.esqueletoCarro.position.z+" ------ "+this.esferaEixo2.position.z);
+
+
             } else {
                 this.esferaEixo1.rotation.z = -0.6;
                 this.esferaEixo2.rotation.z = -0.6;
             }
+
         }
-        if (this.keyboard.pressed("right")) {
+        else if (this.keyboard.pressed("right")) {
             if (Math.round(this.esferaEixo2.rotation.z * 100) / 100 <= 0.6 && Math.round(this.esferaEixo2.rotation.z * 100) / 100 >= -0.6) {
-                this.esferaEixo1.rotateZ(this.moveDistance * 0.05);
-                this.esferaEixo2.rotateZ(this.moveDistance * 0.05);
+                this.esferaEixo1.rotateZ(1 * 0.05);
+                this.esferaEixo2.rotateZ(1 * 0.05);
+
+                // this.esferaEixo1.rotateZ(this.moveDistance * 0.05);
+                // this.esferaEixo2.rotateZ(this.moveDistance * 0.05);
             } else {
                 this.esferaEixo1.rotation.z = 0.6;
                 this.esferaEixo2.rotation.z = 0.6;
+            }
+        }else{//se n tiver pressionar pra esquerda ou direita, volta a roda pra posição 0
+            if(Math.round(this.esferaEixo2.rotation.z * 10) / 10 > 0.01){
+                this.esferaEixo1.rotateZ(-1*0.02);
+                this.esferaEixo2.rotateZ(-1*0.02);
+            }else if(Math.round(this.esferaEixo2.rotation.z * 10) / 10 < 0.01){
+                this.esferaEixo1.rotateZ(1*0.02);
+                this.esferaEixo2.rotateZ(1*0.02);
+            }else{
+                this.esferaEixo1.rotation.z = 0;
+                this.esferaEixo2.rotation.z = 0;
             }
         }
         if (this.keyboard.pressed("down")) {
@@ -204,10 +226,10 @@ export class Carro {
                 this.esqueletoCarro.translateX(Math.round(this.moveDistance * 100) / 100);
                 if (this.keyboard.pressed("left")) {
                     this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
-                    
+
                 } else if (this.keyboard.pressed("right")) {
                     this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                    
+
                 }
             }
         } else {//quando o cara nao apertar a seta para tras, a velocidade tem que aumentar linearmente
@@ -223,19 +245,19 @@ export class Carro {
 
                 if (this.keyboard.pressed("left")) {
                     this.esqueletoCarro.rotateY(-this.moveDistance * 0.05);
-                    
+
                 } else if (this.keyboard.pressed("right")) {
                     this.esqueletoCarro.rotateY(this.moveDistance * 0.05);
-                    
+
                 }
             }
         }
     }
 
-    reset(){
+    reset() {
         this.moveDistance = 0;
-        this.esqueletoCarro.position.set(200,4,0);
-        this.esqueletoCarro.rotation.set(0,0,0);
+        this.esqueletoCarro.position.set(200, 4, 0);
+        this.esqueletoCarro.rotation.set(0, 0, 0);
         this.esferaEixo1.rotation.z = 0;
         this.esferaEixo2.rotation.z = 0;
     }

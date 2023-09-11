@@ -19,12 +19,13 @@ import { Pista } from "./pista.js";
 let scene, renderer, camera, camera2, materialEixo, materialCalotas, materialPneu, materialEsqueletoCarro, materialFarois, light, orbit;; // Initial variables
 scene = new THREE.Scene();    // Create main scene
 renderer = initRenderer();    // Init a basic renderer
-camera = new THREE.PerspectiveCamera( 45, window.innerWidth /  window.innerHeight, 0.1, 1000 );
-camera2 = initCamera(new THREE.Vector3(5,15,50));
+camera = new THREE.PerspectiveCamera( 30, window.innerWidth /  window.innerHeight, 0.1, 1000 );
+camera2 = initCamera(new THREE.Vector3(250,40,-30));
 let keyboard = new KeyboardState();
 let tVolta = new THREE.Clock(0);
 let tTotal = new THREE.Clock(0);
 let voltas=0;
+let tempos = new Array(4);
 
 var message = new SecondaryBox("");
 message.changeStyle("gray");
@@ -37,7 +38,7 @@ orbit = new OrbitControls(camera, renderer.domElement); // Enable mouse rotation
 window.addEventListener('resize', function () { onWindowResize(camera, renderer) }, false);
 
 // create the ground plane
-let plane = createGroundPlaneXZ(1000, 1000)
+let plane = createGroundPlaneXZ(1000000, 1000000)
 scene.add(plane);
 
 
@@ -115,20 +116,18 @@ function gameplay(){
     }
 
     if(pista.volta()){
+        tempos[voltas] = tVolta.elapsedTime.toFixed(2);
         tVolta.elapsedTime = 0;
         voltas+=1;
-        if(voltas == 1){
+        if(voltas == 2){
             tVolta.elapsedTime = 0;
             setTimeout(function(){
                 tVolta.elapsedTime = 0;
-                alert("O jogo terminou!\nTempo total: "+tTotal.elapsedTime.toFixed(2));
+            alert("O JOGO TERMINOU!!!\nTempo total: "+tTotal.elapsedTime.toFixed(2)+"\nVolta 1: "+tempos[0]+"\nVolta 2: "+tempos[1]+"\nVolta 3: "+tempos[2]+"\nVolta 4: "+tempos[3]);
                 location.reload();
             }, 100);
-            
         }
     }
-
-
 }
 
 function render() {
@@ -138,18 +137,18 @@ function render() {
     alternarPista();
     alternarCamera();
     
-    camera.position.set(carro.esqueletoCarro.position.x-100, 50, carro.esqueletoCarro.position.z-100);
+    camera.position.set(carro.esqueletoCarro.position.x-100, 50, carro.esqueletoCarro.position.z-80);
     // camera.position.copy(carro.esqueletoCarro.position+obj.position);
     camera.lookAt(carro.esqueletoCarro.position);
     requestAnimationFrame(render); // Show events
 
+    //camera da gampeplay
     if(auxCam == 0){
-
         renderer.render(scene, camera); // Render scene
         gameplay();
         message.changeMessage("Tempo da volta: " + tVolta.getElapsedTime().toFixed(2)+ "  Tempo total: "+tTotal.getElapsedTime().toFixed(2)+"\nVolta: "+voltas);
         carro.keyboardUpdate();
-    }else if(auxCam == 1){
+    }else if(auxCam == 1){//camera de visualização
         renderer.render(scene, camera2) // Render scene
         tVolta.stop();
         tTotal.stop();

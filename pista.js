@@ -85,33 +85,26 @@ export class Pista {
 
     inPista(posicaoCarro) {
 
-        if (this.numeroPista == 1) {
-            for (let i = 0; i < 16; i++) {
-                if ((posicaoCarro.x >= this.pistaFormada[i].position.x - 50 && posicaoCarro.x <= this.pistaFormada[i].position.x + 50) && (posicaoCarro.z >= this.pistaFormada[i].position.z - 50 && posicaoCarro.z <= this.pistaFormada[i].position.z + 50)) {
-                    this.checkpoint[i] = true;
-                    if(i==7){
-                        this.checkpoint[7] = true;
-                    }else{
-                        this.checkpoint[7] = false;
-                    }
-                    return true;
+
+        for (let i = 0; i < 16; i++) {
+            if ((posicaoCarro.x >= this.pistaFormada[i].position.x - 50 && posicaoCarro.x <= this.pistaFormada[i].position.x + 50) && (posicaoCarro.z >= this.pistaFormada[i].position.z - 50 && posicaoCarro.z <= this.pistaFormada[i].position.z + 50)) {
+                this.checkpoint[i] = true;
+                if (i == 7) {
+                    this.checkpoint[7] = true;
+                } else {
+                    this.checkpoint[7] = false;
                 }
+                return true;
             }
-            return false;
-        } else if (this.numeroPista == 2) {
-            for (let i = 0; i < 16; i++) {
-                if ((posicaoCarro.x >= this.pistaFormada[i].position.x - 50 && posicaoCarro.x <= this.pistaFormada[i].position.x + 50) && (posicaoCarro.z >= this.pistaFormada[i].position.z - 50 && posicaoCarro.z <= this.pistaFormada[i].position.z + 50)) {
-                    return true;
-                }
-            }
-            return false;
         }
+        return false;
+
     }
 
-    volta(){
+    volta() {
         // console.log(this.checkpoint);
         for (let i = 0; i < 16; i++) {
-            if(!this.checkpoint[i]){
+            if (!this.checkpoint[i]) {
                 return false;
             }
         }
