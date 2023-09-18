@@ -201,11 +201,11 @@ export class Carro {
             }
         }else{//se n tiver pressionar pra esquerda ou direita, volta a roda pra posição 0
             if(Math.round(this.esferaEixo2.rotation.z * 10) / 10 > 0.01){
-                this.esferaEixo1.rotateZ(-1*0.02);
-                this.esferaEixo2.rotateZ(-1*0.02);
+                this.esferaEixo1.rotateZ(-this.moveDistance*0.02);
+                this.esferaEixo2.rotateZ(-this.moveDistance*0.02);
             }else if(Math.round(this.esferaEixo2.rotation.z * 10) / 10 < 0.01){
-                this.esferaEixo1.rotateZ(1*0.02);
-                this.esferaEixo2.rotateZ(1*0.02);
+                this.esferaEixo1.rotateZ(this.moveDistance*0.02);
+                this.esferaEixo2.rotateZ(this.moveDistance*0.02);
             }else{
                 this.esferaEixo1.rotation.z = 0;
                 this.esferaEixo2.rotation.z = 0;

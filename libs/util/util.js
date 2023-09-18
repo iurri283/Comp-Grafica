@@ -156,6 +156,61 @@ export class SecondaryBox {
    }
 }
 
+export class BoxSuperior {
+   constructor(defaultText) {
+      this.box = document.createElement('div');
+      this.box.id = "box";
+      this.box.style.padding = "6px 14px";
+      this.box.style.top = "0";
+      this.box.style.left = "0";
+      this.box.style.position = "fixed";
+      this.box.style.backgroundColor = "rgba(255,255,255,0.2)";
+      this.box.style.color = "black";
+      this.box.style.fontWeight = "bold";
+      this.box.style.fontFamily = "sans-serif";
+      this.box.style.fontSize = "20px";
+
+      this.textnode = document.createTextNode(defaultText);
+      this.box.appendChild(this.textnode);
+      document.body.appendChild(this.box);
+   }
+
+   // changeMessage(newText) {
+   //    // Limpa o conteúdo anterior
+   //    this.box.innerHTML = "";
+
+   //    // Divide o texto em linhas separadas
+   //    const lines = newText.split('\n');
+
+   //    // Adiciona cada linha como um novo parágrafo
+   //    for (const line of lines) {
+   //      const paragraph = document.createElement('p');
+   //      paragraph.innerText = line;
+   //      this.box.appendChild(paragraph);
+   //    }
+   // }
+
+   changeMessage(newText) {
+      // Limpa o conteúdo anterior
+      this.box.innerHTML = "";
+
+      // Substitui '\n' por '<br>' e adiciona ao conteúdo da caixa
+      const messageWithBreaks = newText.replace(/\n/g, '<br>');
+      this.box.innerHTML = messageWithBreaks;
+   }
+
+   hide() {
+      this.textnode.nodeValue = "";
+      this.box.style.backgroundColor = "rgba(0,0,0,0)";
+   }
+   changeStyle(backcolor, fontColor, size = "26px", font = "sans-serif") {
+      this.box.style.backgroundColor = backcolor;
+      this.box.style.color = fontColor;
+      this.box.style.fontFamily = font;
+      this.box.style.fontSize = size;
+   }
+}
+
 /**
   * Do not allow that max is lower then min
   *

@@ -9,6 +9,7 @@ import {
     setDefaultMaterial,
     InfoBox,
     SecondaryBox,
+    BoxSuperior,
     onWindowResize,
     createGroundPlaneXZ
 } from "./libs/util/util.js";
@@ -27,8 +28,8 @@ let tTotal = new THREE.Clock(0);
 let voltas=0;
 let tempos = new Array(4);
 
-var message = new SecondaryBox("");
-message.changeStyle("gray");
+var message = new BoxSuperior("");
+// message.changeStyle("gray");
 showInformation();
 
 var trackballControls = new TrackballControls( camera2, renderer.domElement );//para visualização do carro no modo exibição
@@ -119,7 +120,7 @@ function gameplay(){
         tempos[voltas] = tVolta.elapsedTime.toFixed(2);
         tVolta.elapsedTime = 0;
         voltas+=1;
-        if(voltas == 2){
+        if(voltas == 4){
             tVolta.elapsedTime = 0;
             setTimeout(function(){
                 tVolta.elapsedTime = 0;
@@ -146,7 +147,7 @@ function render() {
     if(auxCam == 0){
         renderer.render(scene, camera); // Render scene
         gameplay();
-        message.changeMessage("Tempo da volta: " + tVolta.getElapsedTime().toFixed(2)+ "  Tempo total: "+tTotal.getElapsedTime().toFixed(2)+"\nVolta: "+voltas);
+        message.changeMessage("Tempo da volta: " + tVolta.getElapsedTime().toFixed(2)+ "\nTempo total: "+tTotal.getElapsedTime().toFixed(2)+"\nVolta: "+voltas);
         carro.keyboardUpdate();
     }else if(auxCam == 1){//camera de visualização
         renderer.render(scene, camera2) // Render scene
