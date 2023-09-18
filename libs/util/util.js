@@ -175,21 +175,6 @@ export class BoxSuperior {
       document.body.appendChild(this.box);
    }
 
-   // changeMessage(newText) {
-   //    // Limpa o conteúdo anterior
-   //    this.box.innerHTML = "";
-
-   //    // Divide o texto em linhas separadas
-   //    const lines = newText.split('\n');
-
-   //    // Adiciona cada linha como um novo parágrafo
-   //    for (const line of lines) {
-   //      const paragraph = document.createElement('p');
-   //      paragraph.innerText = line;
-   //      this.box.appendChild(paragraph);
-   //    }
-   // }
-
    changeMessage(newText) {
       // Limpa o conteúdo anterior
       this.box.innerHTML = "";
