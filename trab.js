@@ -131,6 +131,12 @@ function gameplay(){
     }
 }
 
+// ## construção ##
+
+// var carroceria = [[0, 0, 0], [-0.5, 1.5, 4], [0, 0.7, 10], [0, 0.2, 4], //1, 2, 3, 4 
+//                   [-0.2, -2.2, 9.7], ,
+//                   []]
+
 function render() {
     trackballControls.update();
     trackballControls.target.copy(carro.esqueletoCarro.position); // Camera following object
