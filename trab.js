@@ -100,8 +100,8 @@ function alternarPista() {
   }
 }
 
-const spotLight = new THREE.SpotLight(0xffffff);
-spotLight.map = new THREE.TextureLoader().load(url);
+let spotLight = new THREE.SpotLight(0xffffff);
+//spotLight.map = new THREE.TextureLoader().load(url);
 
 function alternarCamera() {
   if (keyboard.down("space")) {
@@ -111,14 +111,15 @@ function alternarCamera() {
       pista.removePista1();
       pista.removePista2();
       message.hide();
-
-      camera2.add(spotLight);
-      spotLight.position.set(0, 50, 0);
+      spotLight.target = carro.esqueletoCarro;
+      scene.remove(plane);
       scene.add(spotLight);
-
+      // camera2.add(spotLight);
       auxCam = 1;
     } else if (auxCam == 1) {
       pista.pista1();
+      scene.remove(spotLight);
+      scene.add(plane);
       message.changeStyle("gray");
       tVolta.elapsedTime = 0;
       tTotal.elapsedTime = 0;
@@ -205,6 +206,7 @@ function render() {
     renderer.render(scene, camera2); // Render scene
     carro.keyboardUpdate(auxCam);
     tVolta.stop();
+    spotLight.position.set(camera2.position.x-5, camera2.position.y+10, camera2.position.z-5);
     tTotal.stop();
     inicio = 0;
   }
