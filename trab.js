@@ -91,12 +91,27 @@ function alternarPista() {
 
   if (keyboard.pressed("1")) {
     pista.removePista2();
+    pista.removePista3();
+    pista.removePista4();
     pista.pista1();
-    carro.reset();
+    carro.reset([200, 4, 0], [0, 0, 0]);
   } else if (keyboard.pressed("2")) {
     pista.removePista1();
+    pista.removePista3();
+    pista.removePista4();
     pista.pista2();
-    carro.reset();
+    carro.reset([200, 4, 0], [0, 0, 0]);
+  } else if (keyboard.pressed("3")) {
+    pista.removePista1();
+    pista.removePista2();
+    pista.pista3();
+    carro.reset([0, 4, 200], [0, 1.516, 0]);
+  } else if (keyboard.pressed("4")) {
+    pista.removePista1();
+    pista.removePista2();
+    pista.removePista3();
+    pista.pista3();
+    carro.reset([500, 4, 700], [0, 0, 0]);
   }
 }
 
@@ -107,9 +122,11 @@ function alternarCamera() {
   if (keyboard.down("space")) {
     if (auxCam == 0) {
       //modo inspeção
-      carro.reset();
+      carro.reset([0, 4, 200], [0,0,0]);
       pista.removePista1();
       pista.removePista2();
+      pista.removePista3();
+      pista.pista4();
       message.hide();
       spotLight.target = carro.esqueletoCarro;
       scene.remove(plane);

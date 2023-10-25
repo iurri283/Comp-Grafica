@@ -443,10 +443,10 @@ export class Carro {
     }
   }
 
-  reset() {
+  reset(pos, rot) {
     this.moveDistance = 0;
-    this.esqueletoCarro.position.set(200, 4, 0);
-    this.esqueletoCarro.rotation.set(0, 0, 0);
+    this.esqueletoCarro.position.set(pos[0], pos[1], pos[2]);
+    this.esqueletoCarro.rotation.set(rot[0], rot[1], rot[2]);
     this.esferaEixo1.rotation.z = 0;
     this.esferaEixo2.rotation.z = 0;
   }
