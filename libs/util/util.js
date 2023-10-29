@@ -162,7 +162,7 @@ export class BoxSuperior {
       this.box.id = "box";
       this.box.style.padding = "6px 14px";
       this.box.style.top = "0";
-      this.box.style.left = "0";
+      this.box.style.right = "0";
       this.box.style.position = "fixed";
       this.box.style.backgroundColor = "rgba(255,255,255,0.2)";
       this.box.style.color = "black";
@@ -188,7 +188,7 @@ export class BoxSuperior {
       this.textnode.nodeValue = "";
       this.box.style.backgroundColor = "rgba(0,0,0,0)";
    }
-   changeStyle(backcolor, fontColor, size = "26px", font = "sans-serif") {
+   changeStyle(backcolor, fontColor, size = "20px", font = "sans-serif") {
       this.box.style.backgroundColor = backcolor;
       this.box.style.color = fontColor;
       this.box.style.fontFamily = font;

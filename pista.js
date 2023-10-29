@@ -52,6 +52,7 @@ export class Pista {
           this.materialPista
         );
       }
+      this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
       this.scene.add(this.pistaFormada[i]);
     }

@@ -286,6 +286,7 @@ export class Carro {
     this.esqueletoCarro.add(farol2);
 
     scene.add(this.esqueletoCarro);
+    this.esqueletoCarro.castShadow = true;
   }
 
   //#####################################################################################################################
