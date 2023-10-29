@@ -304,7 +304,7 @@ export class Carro {
 
       // console.log(Math.round(this.moveDistance * 100) / 100);
       // console.log("\nClock delta: " + clock.getDelta());
-      if (auxCam != 1) {
+      if (auxCam != 2) {
         this.esqueletoCarro.translateX(
           Math.round(this.moveDistance * 100) / 100
         );
@@ -318,7 +318,7 @@ export class Carro {
     } else {
       if (this.moveDistance > 0) {
         this.moveDistance -= 0.007;
-        if (auxCam != 1) {
+        if (auxCam != 2) {
           this.esqueletoCarro.translateX(
             Math.round(this.moveDistance * 100) / 100
           );
@@ -375,13 +375,13 @@ export class Carro {
       //se n tiver pressionar pra esquerda ou direita, volta a roda pra posição 0
       if (
         Math.round(this.esferaEixo2.rotation.z * 10) / 10 > 0.01 &&
-        auxCam != 1
+        auxCam != 2
       ) {
         this.esferaEixo1.rotateZ(-this.moveDistance * 0.02);
         this.esferaEixo2.rotateZ(-this.moveDistance * 0.02);
       } else if (
         Math.round(this.esferaEixo2.rotation.z * 10) / 10 < 0.01 &&
-        auxCam != 1
+        auxCam != 2
       ) {
         this.esferaEixo1.rotateZ(this.moveDistance * 0.02);
         this.esferaEixo2.rotateZ(this.moveDistance * 0.02);
@@ -398,7 +398,7 @@ export class Carro {
 
       if (Math.round(this.moveDistance * 100) / 100 > 0) {
         this.moveDistance -= 0.005;
-        if (auxCam != 1) {
+        if (auxCam != 2) {
           this.esqueletoCarro.translateX(
             Math.round(this.moveDistance * 100) / 100
           );
@@ -406,7 +406,7 @@ export class Carro {
       } else if (Math.round(this.moveDistance * 100) / 100 <= 0) {
         if (Math.round(this.moveDistance * 100) / 100 > -this.velMaxima)
           this.moveDistance -= 0.005;
-        if (auxCam != 1) {
+        if (auxCam != 2) {
           this.esqueletoCarro.translateX(
             Math.round(this.moveDistance * 100) / 100
           );
@@ -423,7 +423,7 @@ export class Carro {
       if (Math.round(this.moveDistance * 100) / 100 < 0) {
         this.moveDistance += 0.007;
 
-        if (auxCam != 1) {
+        if (auxCam != 2) {
           this.esqueletoCarro.translateX(
             Math.round(this.moveDistance * 100) / 100
           );
