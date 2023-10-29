@@ -17,6 +17,8 @@ import {
 import { Carro } from "./carro.js";
 import { Pista } from "./pista.js";
 let scene, renderer, camera, camera2, camTerceiraPessoa, orbit, ambientLight, dirLight; // Initial variables
+let width = window.innerWidth;
+let height = window.innerHeight;
 scene = new THREE.Scene(); // Create main scene
 //renderer = initRenderer(); // Init a basic renderer
 renderer = new THREE.WebGLRenderer();
@@ -47,9 +49,15 @@ dirLight.shadow.radius = 20;
 
 scene.add(dirLight);
 
-const shadowHelper = new THREE.CameraHelper(dirLight.shadow.camera);
-  shadowHelper.visible = true;
-scene.add(shadowHelper);
+
+let camPosition = new THREE.Vector3(200, 250, 200);
+let upVec = new THREE.Vector3(0.0, 0.0, 0.0);
+
+// let projectionChanged = false;
+let virtualCamera = new THREE.PerspectiveCamera(90, 1.3, 0.1, 400.0);
+virtualCamera.position.copy(camPosition);
+virtualCamera.rotation.set(-1.5708, 0, 0);
+virtualCamera.up.copy(upVec);
 
 camera2 = initCamera(new THREE.Vector3(250, 40, -30));
 let keyboard = new KeyboardState();
@@ -95,6 +103,8 @@ const pista = new Pista(scene);
 var inicio = 0;
 var auxCam = 0;
 pista.pista1();
+let lookAtVec = new THREE.Vector3(carro.esqueletoCarro.position.x, carro.esqueletoCarro.position.y, carro.esqueletoCarro.position.z);
+// virtualCamera.lookAt(lookAtVec);
 
 render();
 
@@ -124,24 +134,26 @@ function alternarPista() {
   if(auxCam != 2){
     if (keyboard.pressed("1")) {
       reiniciaTempo();
-      pista.removePista1();
+      virtualCamera.position.set(200, 250, 200);
+      pista.removePista();
       pista.pista1();
       carro.reset([200, 4, 0], [0, 0, 0]);
     } else if (keyboard.pressed("2")) {
       reiniciaTempo();
-      pista.removePista1();
+      virtualCamera.position.set(200, 250, 200);
+      pista.removePista();
       pista.pista2();
       carro.reset([200, 4, 0], [0, 0, 0]);
     } else if (keyboard.pressed("3")) {
       reiniciaTempo();
-      pista.removePista1();
+      pista.removePista();
       pista.pista3();
-      carro.reset([0, 4, 200], [0, 1.516, 0]);
+      carro.reset([0, 4, 200], [0, 1.5708, 0]);
     } else if (keyboard.pressed("4")) {
       reiniciaTempo();
-      pista.removePista1();
+      pista.removePista();
       pista.pista4();
-      carro.reset([500, 4, 700], [0, 3.032, 0]);
+      carro.reset([500, 4, 700], [0, 3.1416, 0]);
     }
   }
 
@@ -158,7 +170,7 @@ function alternarCamera() {
     auxCam = 2;
     spotLight.target = carro.esqueletoCarro;
     scene.remove(plane);
-    pista.removePista1();
+    pista.removePista();
     tVolta.elapsedTime = 0;
     tTotal.elapsedTime = 0;
     message.hide();
@@ -214,19 +226,8 @@ function gameplay() {
     }
   }
 }
-
-function render() {
-  trackballControls.update();
-  trackballControls.target.copy(carro.esqueletoCarro.position); // Camera following object
-
-  alternarPista();
-  if (keyboard.down("space")) {
-    alternarCamera();
-  }
-
-  requestAnimationFrame(render); // Show events
-
-  //camera da gampeplay
+function controlledRender() {
+  if(pista.numeroPista == 3 || pista.numeroPista == 4) virtualCamera.position.set(carro.esqueletoCarro.position.x, 250, carro.esqueletoCarro.position.z);
   if (auxCam == 0) {
     if(pista.numeroPista == 1 || pista.numeroPista == 2)
       camera.position.set(carro.esqueletoCarro.position.x - 100,50,carro.esqueletoCarro.position.z - 80);
@@ -237,7 +238,11 @@ function render() {
     dirLight.target = carro.esqueletoCarro;
     // camera.position.copy(carro.esqueletoCarro.position+obj.position);
     camera.lookAt(carro.esqueletoCarro.position);
-    renderer.render(scene, camera); // Render scene
+    renderer.setViewport(0, 0, width, height); // Reset viewport
+    renderer.setScissorTest(false); // Disable scissor to paint the entire window
+    renderer.setClearColor("rgb(120, 190, 220)");
+    renderer.clear(); // Clean the window
+    renderer.render(scene, camera);
     dirLight.position.set(camera.position.x, camera.position.y+1, camera.position.z-40);
 
     gameplay();
@@ -257,7 +262,11 @@ function render() {
     camTerceiraPessoa.lookAt(carro.esqueletoCarro.position);
     // requestAnimationFrame(render); // Show events
     dirLight.position.set(carro.esqueletoCarro.position.x -90, carro.esqueletoCarro.position.y+21, carro.esqueletoCarro.position.z);
-    renderer.render(scene, camTerceiraPessoa); // Render scene
+    renderer.setViewport(0, 0, width, height); // Reset viewport
+    renderer.setScissorTest(false); // Disable scissor to paint the entire window
+    renderer.setClearColor("rgb(120, 190, 220)");
+    renderer.clear(); // Clean the window
+    renderer.render(scene, camTerceiraPessoa);
 
     gameplay();
     message.changeMessage(
@@ -272,7 +281,11 @@ function render() {
   } else if (auxCam == 2) {
     //---------------------------------------------------------
     //camera de visualização
-    renderer.render(scene, camera2); // Render scene
+    renderer.setViewport(0, 0, width, height); // Reset viewport
+    renderer.setScissorTest(false); // Disable scissor to paint the entire window
+    renderer.setClearColor("rgb(120, 190, 220)");
+    renderer.clear(); // Clean the window
+    renderer.render(scene, camera2);
 
     tVolta.stop();
     spotLight.position.set(
@@ -284,5 +297,39 @@ function render() {
     inicio = 0;
     carro.keyboardUpdate(auxCam);
   }
-  
+
+  // Set main viewport
+
+
+  // If autoClear if false, clear depth buffer to avoid unwanted overlays
+  if (!renderer.autoClear) renderer.clearDepth(); // Clean the small viewport
+
+  // Set virtual camera viewport
+  let offset = 10;
+  let vcWidth = width / 3.0 > 400 ? 400 : width / 3.0;
+  let vcHeidth = vcWidth * 0.75;
+  renderer.setViewport(offset, height - vcHeidth - offset, vcWidth, vcHeidth); // Set virtual camera viewport
+  renderer.setScissor(
+    offset,
+    height - vcHeidth - offset,
+    vcWidth - 1,
+    vcHeidth - 1
+  ); // Set scissor with the same size as the viewport - 1
+  renderer.setScissorTest(true); // Enable scissor to paint only the scissor are (i.e., the small viewport)
+  renderer.setClearColor("rgb(60, 50, 150)"); // Use a darker clear color in the small viewport
+  if (auxCam !=2) renderer.render(scene, virtualCamera); // Render scene of the virtual camera
+}
+
+function render() {
+  trackballControls.update();
+  trackballControls.target.copy(carro.esqueletoCarro.position); // Camera following object
+
+  alternarPista();
+  if (keyboard.down("space")) {
+    alternarCamera();
+  }
+
+  requestAnimationFrame(render); // Show events
+
+  controlledRender();
 }

@@ -107,6 +107,7 @@ export class Pista {
           this.materialPista
         );
       }
+      this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
       this.scene.add(this.pistaFormada[i]);
     }
@@ -167,6 +168,7 @@ export class Pista {
           this.materialPista
         );
       }
+      this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
       this.scene.add(this.pistaFormada[i]);
     }
@@ -216,32 +218,13 @@ export class Pista {
           this.materialPista
         );
       }
+      this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
       this.scene.add(this.pistaFormada[i]);
     }
   }
 
-  removePista1() {
-    // console.log(this.pistaFormada.length);
-    for (let i = 0; i < this.pistaFormada.length; i++) {
-      this.scene.remove(this.pistaFormada[i]);
-    }
-  }
-
-  removePista2() {
-    for (let i = 0; i < this.pistaFormada.length; i++) {
-      this.scene.remove(this.pistaFormada[i]);
-    }
-  }
-
-  removePista3() {
-    // console.log(this.pistaFormada.length);
-    for (let i = 0; i < this.pistaFormada.length; i++) {
-      this.scene.remove(this.pistaFormada[i]);
-    }
-  }
-
-  removePista4() {
+  removePista() {
     // console.log(this.pistaFormada.length);
     for (let i = 0; i < this.pistaFormada.length; i++) {
       this.scene.remove(this.pistaFormada[i]);
