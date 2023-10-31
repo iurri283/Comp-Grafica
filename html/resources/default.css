@@ -4,3 +4,255 @@ body, html {
    margin: 0px;
    overflow: hidden;
 }
+
+.velocimetro{
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   height: 200px;
+   width: 200px;
+   border: 3px solid black;
+   border-radius: 50%;
+   background-color: gray;
+}
+
+.center-point{
+   position: absolute;
+   top: 93px;
+   left: 90px;
+   width: 15px;
+   height: 15px;
+   background-color: black;
+   border-radius: 50%;
+   z-index: 10;
+  
+}
+
+.escala-velocimetro{
+   width: 4px;
+   height: 180px;
+   background-color: black;
+   position: absolute;
+   left: 97px;
+   top: 10px;
+}
+
+.esconde-centro-velocimetro{
+   width: 160px;
+   height: 160px;
+   background-color: gray;
+   border-radius: 50%;
+   position: absolute;
+   top: 21px;
+   left: 18px;
+   z-index: 9;
+}
+
+.seta-velocimetro{
+   width: 110px;
+   height: 110px;
+   background-color: transparent;
+   position: absolute;
+   z-index: 12;
+   top: 42px;
+   left: 42px;
+}
+
+.seta-wrapper{
+   width: 110px;
+   height: 110px;
+   background-color: transparent;
+   position: relative;
+   transition: all 0.4s;
+}
+
+.seta{
+   width: 75px;
+   height: 3px;
+   background-color: purple;
+   position: absolute;
+   top: 57px;
+   left: -19px;
+}
+
+/* ####################################################################################################################################### */
+.velocidade-0{
+   transform: rotate(0deg);
+}
+.velocidade-10{
+   transform: rotate(10deg);
+}
+.velocidade-20{
+   transform: rotate(20deg);
+}
+.velocidade-30{
+   transform: rotate(30deg);
+}
+.velocidade-40{
+   transform: rotate(40deg);
+}
+.velocidade-50{
+   transform: rotate(50deg);
+}
+.velocidade-60{
+   transform: rotate(60deg);
+}
+.velocidade-70{
+   transform: rotate(70deg);
+}
+.velocidade-80{
+   transform: rotate(80deg);
+}
+.velocidade-90{
+   transform: rotate(90deg);
+}
+.velocidade-100{
+   transform: rotate(100deg);
+}
+.velocidade-110{
+   transform: rotate(110deg);
+}
+.velocidade-120{
+   transform: rotate(120deg);
+}
+.velocidade-130{
+   transform: rotate(130deg);
+}
+.velocidade-140{
+   transform: rotate(140deg);
+}
+.velocidade-150{
+   transform: rotate(150deg);
+}
+.velocidade-160{
+   transform: rotate(160deg);
+}
+.velocidade-170{
+   transform: rotate(170deg);
+}
+.velocidade-180{
+   transform: rotate(180deg);
+}
+
+
+/* ###############################################################  CORES  ################################################################# */
+/* 
+.escala-velocimetro-1.ativado{
+   background-color: green;
+}
+.escala-velocimetro-2.ativado{
+   background-color: rgb(4, 171, 4);
+}
+.escala-velocimetro-3.ativado{
+   background-color: rgb(6, 208, 6);
+}
+.escala-velocimetro-4.ativado{
+   background-color: rgb(43, 244, 43);
+}
+.escala-velocimetro-5.ativado{
+   background-color: rgb(79, 251, 79);
+}
+.escala-velocimetro-6.ativado{
+   background-color: rgb(133, 251, 79);
+}
+.escala-velocimetro-7.ativado{
+   background-color: rgb(199, 251, 79);
+}
+.escala-velocimetro-8.ativado{
+   background-color: rgb(228, 251, 79);
+}
+.escala-velocimetro-9.ativado{
+   background-color: rgb(251, 251, 79);
+}
+.escala-velocimetro-10.ativado{
+   background-color: rgb(251, 234, 79);
+}
+.escala-velocimetro-11.ativado{
+   background-color: rgb(251, 205, 79);
+}
+.escala-velocimetro-12.ativado{
+   background-color: rgb(251, 168, 79);
+}
+.escala-velocimetro-13.ativado{
+   background-color: rgb(251, 139, 79);
+}
+.escala-velocimetro-14.ativado{
+   background-color: rgb(251, 122, 79);
+}
+.escala-velocimetro-15.ativado{
+   background-color: rgb(251, 99, 79);
+}
+.escala-velocimetro-16.ativado{
+   background-color: rgb(251, 90, 79);
+}
+.escala-velocimetro-17.ativado{
+   background-color: rgb(247, 61, 47);
+}
+.escala-velocimetro-18.ativado{
+   background-color: rgb(247, 47, 47);
+}
+.escala-velocimetro-19.ativado{
+   background-color: rgb(255, 0, 0);
+} */
+
+/* ####################################################################################################################################### */
+.escala-velocimetro-1{
+   transform: rotate(-90deg);
+}
+.escala-velocimetro-2{
+   transform: rotate(-80deg);
+}
+.escala-velocimetro-3{
+   transform: rotate(-70deg);
+}
+.escala-velocimetro-4{
+   transform: rotate(-60deg);
+}
+.escala-velocimetro-5{
+   transform: rotate(-50deg);
+}
+.escala-velocimetro-6{
+   transform: rotate(-40deg);
+}
+.escala-velocimetro-7{
+   transform: rotate(-30deg);
+}
+.escala-velocimetro-8{
+   transform: rotate(-20deg);
+}
+.escala-velocimetro-9{
+   transform: rotate(-10deg);
+}
+.escala-velocimetro-10{
+   transform: rotate(0deg);
+}
+.escala-velocimetro-11{
+   transform: rotate(10deg);
+}
+.escala-velocimetro-12{
+   transform: rotate(20deg);
+}
+.escala-velocimetro-13{
+   transform: rotate(30deg);
+}
+.escala-velocimetro-14{
+   transform: rotate(40deg);
+}
+.escala-velocimetro-15{
+   transform: rotate(50deg);
+}
+.escala-velocimetro-16{
+   transform: rotate(60deg);
+}
+.escala-velocimetro-17{
+   transform: rotate(70deg);
+}
+.escala-velocimetro-18{
+   transform: rotate(80deg);
+}
+.escala-velocimetro-19{
+   transform: rotate(90deg);
+}
+
+
+
