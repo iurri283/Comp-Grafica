@@ -1,168 +1,32 @@
 import * as THREE from "three";
 import KeyboardState from "./libs/util/KeyboardState.js";
+import { ConvexGeometry } from "../build/jsm/geometries/ConvexGeometry.js";
 
 export class Carro {
-  // var vetor1 = [
-  //     [-0.5, 10.1, 0],
-  //     [-0.5, 10.1, 10],
-  //     [-0.5, 11.5, 4],
 
-  //     [-5.5, 10.1, 0],
-  //     [-5.5, 10.1, 10],
-  //     [-5.5, 11.5, 4],
-  //   ];
+  generatePoints(vetor) {
 
-  //   var vetor2 = [
-  //     [-0.5, 10.1, 10],
-  //     [-0.5, 8.2, 9.7],
-  //     [-0.5, 8.2, 8.7],
-  //     [-0.5, 9.1, 8.2],
-  //     [-0.5, 10.1, 8.2],
-
-  //     [-5.5, 10.1, 10],
-  //     [-5.5, 8.2, 9.7],
-  //     [-5.5, 8.2, 8.7],
-  //     [-5.5, 9.1, 8.2],
-  //     [-5.5, 10.1, 8.2],
-  //   ];
-
-  //   var vetor3 =[
-  //     [-0.5, 9.1, 8.2],
-  //     [-0.5, 9.1, 6.9],
-  //     [-0.5, 10.1, 8.2],
-  //     [-0.5, 10.1, 6.9],
-
-  //     [-5.5, 9.1, 8.2],
-  //     [-5.5, 9.1, 6.9],
-  //     [-5.5, 10.1, 8.2],
-  //     [-5.5, 10.1, 6.9],
-  //   ];
-
-  //   var vetor4 =[
-  //     [-0.5, 9.1, 6.9],
-  //     [-0.5, 10.1, 6.9],
-  //     [-0.5, 8.05, 6.4],
-  //     [-0.5, 10.1, 6.4],
-
-  //     [-5.5, 9.1, 6.9],
-  //     [-5.5, 10.1, 6.9],
-  //     [-5.5, 8.05, 6.4],
-  //     [-5.5, 10.1, 6.4],
-  //   ];
-
-  //   var vetor5 =[
-  //     [-0.5, 8.05, 6.4],
-  //     [-0.5, 10.1, 6.4],
-  //     [-0.5, 8.05, 2.3],
-  //     [-0.5, 10.1, 2.3],
-
-  //     [-5.5, 8.05, 6.4],
-  //     [-5.5, 10.1, 6.4],
-  //     [-5.5, 8.05, 2.3],
-  //     [-5.5, 10.1, 2.3],
-  //   ];
-
-  //   var vetor6 =[
-  //     [-0.5, 8.05, 6.4],
-  //     [-0.5, 8.05, 2.3],
-  //     [-0.5, 7.6, 6.4],
-  //     [-0.5, 7.6, 2.3],
-
-  //     [-5.5, 8.05, 6.4],
-  //     [-5.5, 8.05, 2.3],
-  //     [-5.5, 7.6, 6.4],
-  //     [-5.5, 7.6, 2.3],
-  //   ];
-
-  //   var vetor7 =[
-  //     [-0.5, 8.05, 2.3],
-  //     [-0.5, 10.1, 2.3],
-  //     [-0.5, 9.1, 1.8],
-  //     [-0.5, 10.1, 1.8],
-
-  //     [-5.5, 8.05, 2.3],
-  //     [-5.5, 10.1, 2.3],
-  //     [-5.5, 9.1, 1.8],
-  //     [-5.5, 10.1, 1.8],
-  //   ];
-
-  //   var vetor8 =[
-  //     [-0.5, 9.1, 1.8],
-  //     [-0.5, 9.1, 0.5],
-  //     [-0.5, 10.1, 1.8],
-  //     [-0.5, 10.1, 0.5],
-
-  //     [-5.5, 9.1, 1.8],
-  //     [-5.5, 9.1, 0.5],
-  //     [-5.5, 10.1, 1.8],
-  //     [-5.5, 10.1, 0.5],
-  //   ];
-
-  //   var vetor9 =[
-  //     [-0.5, 9.1, 0.5],
-  //     [-0.5, 10.1, 0.5],
-  //     [-0.5, 10.1, 0],
-  //     [-0.5, 8.7, 0.3],
-  //     [-0.5, 8.9, 0.1],
-
-  //     [-5.5, 9.1, 0.5],
-  //     [-5.5, 10.1, 0.5],
-  //     [-5.5, 10.1, 0],
-  //     [-5.5, 8.7, 0.3],
-  //     [-5.5, 8.9, 0.1],
-  //   ];
-
-  //   var vidro1 =[
-  //     [-0.49, 10.7, 2.3],
-  //     [-0.49, 10.45, 2.3],
-  //     [-0.49, 10.45, 1.6],
-
-  //     [-5.51, 10.7, 2.3],
-  //     [-5.51, 10.45, 2.3],
-  //     [-5.51, 10.45, 1.6],
-  //   ];
-
-  //   var vidro2 =[
-  //     [-0.49, 10.45, 4.5],
-  //     [-0.49, 10.45, 2.8],
-  //     [-0.49, 11.3, 4],
-  //     [-0.49, 10.85, 2.8],
-  //     [-0.49, 11.17, 4.5],
-
-  //     [-5.51, 10.45, 4.5],
-  //     [-5.51, 10.45, 2.8],
-  //     [-5.51, 11.3, 4],
-  //     [-5.51, 10.85, 2.8],
-  //     [-5.51, 11.17, 4.5],
-  //   ];
-
-  //   var vidro3 = [
-  //     [-0.49, 11.14, 5],
-  //     [-0.49, 10.45, 5],
-  //     [-0.49, 10.45, 6.3],
-  //     [-0.49, 10.84, 6.3],
-
-  //     [-5.51, 11.14, 5],
-  //     [-5.51, 10.45, 5],
-  //     [-5.51, 10.45, 6.3],
-  //     [-5.51, 10.84, 6.3],
-  //   ];
-
-  //   var vidro4 = [
-  //     [-0.7, 10.7, 1.7],
-  //     [-0.7, 11.51, 4],
-
-  //     [-5.3, 10.7, 1.7],
-  //     [-5.3, 11.51, 4],
-  //   ];
-
-  //   var vidro5 = [
-  //     [-0.7, 11.51, 4],
-  //     [-0.7, 10.93, 6.5],
-
-  //     [-5.3, 11.51, 4],
-  //     [-5.3, 10.93, 6.5],
-  //   ];
+    var points = [];
+  
+    for (var i = 0; i < vetor.length; i++) {
+      points.push(new THREE.Vector3(vetor[i][0], vetor[i][1], vetor[i][2]));
+    }
+  
+    return points;
+  }
+  
+  criaObjeto(vetor, objectMaterial) {
+   // First, create the point vector to be used by the convex hull algorithm
+   var localPoints = this.generatePoints(vetor);
+  
+   // Then, build the convex geometry with the generated points
+   var convexGeometry = new ConvexGeometry(localPoints);
+  
+   var object = new THREE.Mesh(convexGeometry, objectMaterial);
+   object.castShadow = true;
+   object.visible = true;
+   return object;
+  }
 
   constructor(scene, camera) {
     // var speed = 10;
@@ -173,22 +37,280 @@ export class Carro {
     // To use the keyboard
     this.keyboard = new KeyboardState();
 
+
+    var vetor1 = [      
+      [-0, 4.1, 0.5],
+      [-10, 4.1, 0.5],
+      [-4, 5.5, 0.5],
+      [-0, 4.1, 5.5],
+      [-10, 4.1, 5.5],
+      [-4, 5.5, 5.5]
+    ];
+    
+    var vetor2 = [
+      [-10, 4.1, 0.5],
+      [-9.7, 2.2, 0.5],
+      [-8.7, 2.2, 0.5],
+      [-8.2, 3.1, 0.5],
+      [-8.2, 4.1, 0.5],
+      [-10, 4.1, 5.5],
+      [-9.7, 2.2, 5.5],
+      [-8.7, 2.2, 5.5],
+      [-8.2, 3.1, 5.5],
+      [-8.2, 4.1, 5.5]
+    ];
+    
+    var vetor13 = [
+      [-10, 4.05, 0.56],
+      [-9.98, 3.95, 0.56],
+      [-10, 4.05, 5.44],
+      [-9.98, 3.95, 5.44]
+    ];
+    
+    var vetor14_1 = [
+      [-9.75, 2.4, 0.58],
+      [-9.74, 2.35, 0.58],
+      [-9.75, 2.4, 1.16],
+      [-9.74, 2.35, 1.16]
+    ];
+    
+    var vetor14_2 = [
+      [-9.75, 2.4, 4.88],
+      [-9.74, 2.35, 4.88],
+      [-9.75, 2.4, 5.42],
+      [-9.74, 2.35, 5.42]
+    ];
+    
+    var vetor3 = [
+      [-8.2, 3.1, 0.5],
+      [-6.9, 3.1, 0.5],
+      [-8.2, 4.1, 0.5],
+      [-6.9, 4.1, 0.5],
+      [-8.2, 3.1, 5.5],
+      [-6.9, 3.1, 5.5],
+      [-8.2, 4.1, 5.5],
+      [-6.9, 4.1, 5.5]
+    ];
+    
+    var vetor4 = [
+      [-6.9, 3.1, 0.5],
+      [-6.9, 4.1, 0.5],
+      [-6.4, 2.05, 0.5],
+      [-6.4, 4.1, 0.5],
+      [-6.9, 3.1, 5.5],
+      [-6.9, 4.1, 5.5],
+      [-6.4, 2.05, 5.5],
+      [-6.4, 4.1, 5.5]
+    ];
+    
+    var vetor5 = [
+      [-6.4, 2.05, 0.5],
+      [-6.4, 4.1, 0.5],
+      [-2.3, 2.05, 0.5],
+      [-2.3, 4.1, 0.5],
+      [-6.4, 2.05, 5.5],
+      [-6.4, 4.1, 5.5],
+      [-2.3, 2.05, 5.5],
+      [-2.3, 4.1, 5.5]
+    ];
+    
+    var vetor6 = [
+      [-6.4, 2.05, 0.5],
+      [-2.3, 2.05, 0.5],
+      [-6.4, 1.6, 0.5],
+      [-2.3, 1.6, 0.5],
+      [-6.4, 2.05, 5.5],
+      [-2.3, 2.05, 5.5],
+      [-6.4, 1.6, 5.5],
+      [-2.3, 1.6, 5.5]
+    ];
+    
+    var vetor7 = [
+      [-2.3, 2.05, 0.5],
+      [-2.3, 4.1, 0.5],
+      [-1.8, 3.1, 0.5],
+      [-1.8, 4.1, 0.5],
+      [-2.3, 2.05, 5.5],
+      [-4.1, 4.1, 5.5],
+      [-1.8, 3.1, 5.5],
+      [-1.8, 4.1, 5.5]
+    ];
+    
+    var vetor8 = [
+      [-1.8, 3.1, 0.5],
+      [-0.5, 3.1, 0.5],
+      [-1.8, 4.1, 0.5],
+      [-0.5, 4.1, 0.5],
+      [-1.8, 3.1, 5.5],
+      [-0.5, 3.1, 5.5],
+      [-1.8, 4.1, 5.5],
+      [-0.5, 4.1, 5.5]
+    ];
+    
+    var vetor9 = [      
+      [-0.5, 3.1, 0.5],
+      [-0.5, 4.1, 0.5],
+      [-0, 4.1, 0.5],
+      [-0.3, 2.7, 0.5],
+      [-0.1, 2.9, 0.5],
+      [-0.5, 3.1, 5.5],
+      [-0.5, 4.1, 5.5],
+      [-0, 4.1, 5.5],
+      [-0.3, 2.7, 5.5],
+      [-0.1, 2.9, 5.5]
+    ];
+    
+    var vetor10 = [      
+      [0.85, 3.5, 0.51],
+      [0.85, 3, 0.51],
+      [-0, 4.1, 0.51],
+      [-0.3, 2.7, 0.51],
+      [0.1, 2.7, 0.51],
+      [0.85, 3.5, 5.49],
+      [0.85, 3, 5.49],
+      [-0, 4.1, 5.49],
+      [-0.3, 2.7, 5.49],
+      [0.1, 2.7, 5.49]
+    ];
+    
+    var vetor11 = [
+      [0.86, 3.5, 0.52],
+      [0.85, 3.3, 0.52],
+      [0.7, 3.3, 0.52],
+      [0.86, 3.5, 5.48],
+      [0.85, 3.3, 5.48],
+      [0.7, 3.3, 5.48]
+    ];
+    
+    var vetor12_1 = [
+      [0.87, 3.18, 0.8],
+      [0.87, 3.08, 0.8],
+      [0.87, 3.18, 1.3],
+      [0.87, 3.08, 1.3]
+    ];
+    
+    var vetor12_2 = [
+      [0.87, 3.18, 4.71],
+      [0.87, 3.08, 4.71],
+      [0.87, 3.18, 5.21],
+      [0.87, 3.08, 5.21]
+    ];
+    
+    var vidro1 = [
+      [-2.3, 4.7, 0.49],
+      [-2.3, 4.45, 0.49],
+      [-1.6, 4.45, 0.49],
+      [-2.3, 4.7, 5.51],
+      [-2.3, 4.45, 5.51],
+      [-1.6, 4.45, 5.51]
+    ];
+    
+    var vidro2 = [
+      [-4.5, 4.45, 0.49],
+      [-2.8, 4.45, 0.49],
+      [-4, 5.3, 0.49],
+      [-2.8, 4.85, 0.49],
+      [-4.5, 5.17, 0.49],
+      [-4.5, 4.45, 5.51],
+      [-2.8, 4.45, 5.51],
+      [-4, 5.3, 5.51],
+      [-2.8, 4.85, 5.51],
+      [-4.5, 5.17, 5.51]
+    ];
+    
+    var vidro3 = [
+      [-5, 5.14, 0.49],
+      [-5, 4.45, 0.49],
+      [-6.3, 4.45, 0.49],
+      [-6.3, 4.84, 0.49],
+      [-5, 5.14, 5.51],
+      [-5, 4.45, 5.51],
+      [-6.3, 4.45, 5.51],
+      [-6.3, 4.84, 5.51]
+    ];
+    
+    var vidro4 = [
+      [-1.7, 4.7, 0.7],
+      [-3.7, 5.4, 0.7],
+      [-1.7, 4.7, 5.3],
+      [-3.7, 5.4, 5.3]
+    ];
+    
+    var vidro5 = [
+      [-4, 5.51, 0.7],
+      [-6.5, 4.93, 0.7],
+      [-4, 5.51, 5.3],
+      [-6.5, 4.93, 5.3]
+    ];
+    
+    
     let materialEixo,
       materialCalotas,
+      materialDetalhe,
       materialPneu,
-      materialFarois,
+      materialVidro,
+      materialFarois_1,
+      materialFarois_2,
+      materialFarois_3,
       materialEsqueletoCarro;
 
-    materialEixo = new THREE.MeshPhongMaterial({ color: 0x0000ff }); // create a basic material
-    materialCalotas = new THREE.MeshPhongMaterial({ color: 0xffff80 }); // create a basic material
-    materialPneu = new THREE.MeshPhongMaterial({ color: 0x000000 });
-    materialFarois = new THREE.MeshPhongMaterial({ color: 0xffff00 });
-    materialEsqueletoCarro = new THREE.MeshPhongMaterial({ color: 0x008000 });
+    materialEixo = new THREE.MeshLambertMaterial({
+      color: "rgb(32,32,32)",
+      opacity: 1,
+      transparent: true,
+    });
+
+    materialDetalhe = new THREE.MeshPhongMaterial({
+      color: "rgb(68,70,72)",
+      opacity: 1,
+      transparent: true,
+    });
+
+    materialCalotas = new THREE.MeshPhongMaterial({
+      color: "rgb(61,63,64)",
+      opacity: 1,
+      transparent: true,
+    });
+    materialPneu = new THREE.MeshLambertMaterial({
+      color: "rgb(32,32,32)",
+      opacity: 1,
+      transparent: true,
+    });
+
+    materialFarois_1 = new THREE.MeshLambertMaterial({
+      color: "rgb(255,255,255)",
+      opacity: 1,
+      transparent: false,
+    });
+
+    materialFarois_2 = new THREE.MeshLambertMaterial({
+      color: "rgb(255,255,0)",
+      opacity: 1,
+      transparent: false,
+    });
+
+    materialFarois_3 = new THREE.MeshLambertMaterial({
+      color: "rgb(255,0,0)",
+      opacity: 1,
+      transparent: false,
+    });
+
+    materialVidro = new THREE.MeshPhongMaterial({
+      color: "rgb(0,0,0)",
+      opacity: 1,
+      transparent: true,
+    });
+
+    materialEsqueletoCarro = new THREE.MeshPhongMaterial({
+      color: "rgb(126, 132, 132)",
+      opacity: 1,
+      transparent: true,
+    });
 
     //#################################################-- EIXOS E RODAS DIANTEIROS --##############################
     // let axesHelper = new THREE.AxesHelper( 12 );
     //criando rodas dianteiras
-    let rodasGeometry = new THREE.TorusGeometry(1, 0.4, 12, 48);
+    let rodasGeometry = new THREE.TorusGeometry(0.667, 0.25, 12, 48);
 
     this.rd1 = new THREE.Mesh(rodasGeometry, materialPneu);
     this.rd2 = new THREE.Mesh(rodasGeometry, materialPneu);
@@ -202,25 +324,32 @@ export class Carro {
     // rd2.add(axesHelper);
 
     //criando calotas
-    let calotasGeometry = new THREE.CircleGeometry(0.7, 0);
+    let calotasGeometry = new THREE.RingGeometry(4/17, 7.5/13, 7);
+    let calotasDetalhe = new THREE.CircleGeometry(0.27, 7);
     let calotaRd1 = new THREE.Mesh(calotasGeometry, materialCalotas);
     let calotaRd2 = new THREE.Mesh(calotasGeometry, materialCalotas);
-
-    calotaRd1.position.set(0.0, 0.0, -0.2);
-    calotaRd2.position.set(0.0, 0.0, 0.2);
-
-    calotaRd1.rotateX(3.1416);
-    // calotaRd2.rotateX(-1.5708);
-
+    
+    let calotaDetalheRd1 = new THREE.Mesh(calotasDetalhe, materialDetalhe);
+    let calotaDetalheRd2 = new THREE.Mesh(calotasDetalhe, materialDetalhe);
+    
     this.rd1.add(calotaRd1);
     this.rd2.add(calotaRd2);
 
-    //criando eixos
-    let eixoGeometry = new THREE.CylinderGeometry(0.2, 0.2, 7, 64);
-    let eixoDianteiro = new THREE.Mesh(eixoGeometry, materialEixo);
+    calotaRd1.add(calotaDetalheRd1);
+    calotaRd2.add(calotaDetalheRd2);
 
-    eixoDianteiro.position.set(4, -2.0, 0);
-    eixoDianteiro.rotateX(1.5708);
+    calotaRd1.position.set(0.0, 0.0, -0.173);
+    calotaRd2.position.set(0.0, 0.0, 0.173);
+
+    calotaRd1.rotateY(3.1416);
+
+    calotaDetalheRd1.position.set(0,0,0.03);
+    calotaDetalheRd2.position.set(0,0,0.03);
+
+
+    //criando eixos
+    let eixoGeometry = new THREE.CylinderGeometry(0.2, 0.2, 5, 64);
+    let eixoDianteiro = new THREE.Mesh(eixoGeometry, materialEixo);
 
     //#################################################--EIXOS E RODAS TRASEIRA--###############################################
     //criando rodas traseiras
@@ -236,29 +365,39 @@ export class Carro {
     //criando calotas
     let calotaRt1 = new THREE.Mesh(calotasGeometry, materialCalotas);
     let calotaRt2 = new THREE.Mesh(calotasGeometry, materialCalotas);
-    calotaRt1.position.set(0.0, 0.0, -0.2);
-    calotaRt2.position.set(0.0, 0.0, 0.2);
+    let calotaDetalheRt1 = new THREE.Mesh(calotasDetalhe, materialDetalhe);
+    let calotaDetalheRt2 = new THREE.Mesh(calotasDetalhe, materialDetalhe);
 
-    // calotaRt1.rotateX(1.5708);
-    calotaRt1.rotateX(3.1416);
+    calotaRt1.add(calotaDetalheRt1);
+    calotaRt2.add(calotaDetalheRt2);
+    calotaRt1.position.set(0.0, 0.0, -0.173);
+    calotaRt2.position.set(0.0, 0.0, 0.173);
+
+    calotaRt1.rotateY(3.1416);
+
+    calotaDetalheRt1.position.set(0,0,0.03);
+    calotaDetalheRt2.position.set(0,0,0.03);
 
     this.rt1.add(calotaRt1);
     this.rt2.add(calotaRt2);
 
     let eixoTraseiro = new THREE.Mesh(eixoGeometry, materialEixo);
-    eixoTraseiro.position.set(-4.0, -2.0, 0.0);
+
     eixoTraseiro.rotateX(1.5708);
 
     eixoTraseiro.add(this.rt1);
     eixoTraseiro.add(this.rt2);
 
+    this.rt1.position.set(0.0, 2.5, 0.0);
+    this.rt2.position.set(0.0, -2.5, 0.0);
+
     //##########################################--ESFERAS DOS EIXOS--###########################################
     let esferaEixoGeometry = new THREE.SphereGeometry(0.2, 64, 32);
-    this.esferaEixo1 = new THREE.Mesh(esferaEixoGeometry, materialFarois);
-    this.esferaEixo2 = new THREE.Mesh(esferaEixoGeometry, materialFarois);
+    this.esferaEixo1 = new THREE.Mesh(esferaEixoGeometry, materialPneu);
+    this.esferaEixo2 = new THREE.Mesh(esferaEixoGeometry, materialPneu);
 
-    this.esferaEixo1.position.set(0.0, 3.5, 0.0);
-    this.esferaEixo2.position.set(0.0, -3.5, 0.0);
+    this.esferaEixo1.position.set(0.0, 2.5, 0.0);
+    this.esferaEixo2.position.set(0.0, -2.5, 0.0);
 
     eixoDianteiro.add(this.esferaEixo1);
     eixoDianteiro.add(this.esferaEixo2);
@@ -266,26 +405,43 @@ export class Carro {
     this.esferaEixo1.add(this.rd1);
     this.esferaEixo2.add(this.rd2);
 
-    //#################################################-- FAROIS DO CARRO --###############################################
-    let esferaGeometry = new THREE.SphereGeometry(0.5, 64, 32);
-    let farol1 = new THREE.Mesh(esferaGeometry, materialFarois);
-    let farol2 = new THREE.Mesh(esferaGeometry, materialFarois);
-
-    farol1.position.set(5, -1.0, 2);
-    farol2.position.set(5, -1.0, -2);
-
+    eixoDianteiro.position.set(-1.2, 2.17, 3);
+    eixoDianteiro.rotation.set(1.5708, 0, 0);
+    eixoTraseiro.position.set(-7.6, 2.17, 3);
+    eixoTraseiro.rotation.set(1.5708, 0, 0);
+    
     //#################################################-- ESQUELETO DO CARRO --###############################################
-    let cubeGeometry = new THREE.BoxGeometry(10, 4, 6.2);
-    this.esqueletoCarro = new THREE.Mesh(cubeGeometry, materialEsqueletoCarro);
-    this.esqueletoCarro.position.set(200.0, 4.0, 0.0);
-    // this.esqueletoCarro.rotateY(1.516);
+    
+    this.esqueletoCarro = this.criaObjeto(vetor1, materialEsqueletoCarro);
+    this.esqueletoCarro.add(this.criaObjeto(vetor2, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor3, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor4, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor5, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor6, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor7, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor8, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor9, materialEsqueletoCarro));
+    this.esqueletoCarro.add(this.criaObjeto(vetor10, materialEsqueletoCarro));
 
+    this.esqueletoCarro.add(this.criaObjeto(vetor11, materialFarois_1));
+    this.esqueletoCarro.add(this.criaObjeto(vetor12_1, materialFarois_2));
+    this.esqueletoCarro.add(this.criaObjeto(vetor12_2, materialFarois_2)); 
+    this.esqueletoCarro.add(this.criaObjeto(vetor13, materialFarois_3));
+    this.esqueletoCarro.add(this.criaObjeto(vetor14_1, materialFarois_3));
+    this.esqueletoCarro.add(this.criaObjeto(vetor14_2, materialFarois_3));
+    this.esqueletoCarro.add(this.criaObjeto(vidro1, materialVidro));
+    this.esqueletoCarro.add(this.criaObjeto(vidro2, materialVidro));
+    this.esqueletoCarro.add(this.criaObjeto(vidro3, materialVidro));
+    this.esqueletoCarro.add(this.criaObjeto(vidro4, materialVidro));
+    this.esqueletoCarro.add(this.criaObjeto(vidro5, materialVidro));
+
+    this.esqueletoCarro.position.set(200.0, -0.85, 0.0);
+    
     this.esqueletoCarro.add(eixoDianteiro);
     this.esqueletoCarro.add(eixoTraseiro);
-    this.esqueletoCarro.add(farol1);
-    this.esqueletoCarro.add(farol2);
 
     scene.add(this.esqueletoCarro);
+
     this.esqueletoCarro.castShadow = true;
   }
 

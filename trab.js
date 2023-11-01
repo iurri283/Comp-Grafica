@@ -155,23 +155,23 @@ function alternarPista() {
       virtualCamera.position.set(200, 250, 200);
       pista.removePista();
       pista.pista1();
-      carro.reset([200, 4, 0], [0, 0, 0]);
+      carro.reset([200, -0.85, 0], [0, 0, 0]);
     } else if (keyboard.pressed("2")) {
       reiniciaTempo();
       virtualCamera.position.set(200, 250, 200);
       pista.removePista();
       pista.pista2();
-      carro.reset([200, 4, 0], [0, 0, 0]);
+      carro.reset([200, -0.85, 0], [0, 0, 0]);
     } else if (keyboard.pressed("3")) {
       reiniciaTempo();
       pista.removePista();
       pista.pista3();
-      carro.reset([0, 4, 200], [0, 1.5708, 0]);
+      carro.reset([0, -0.85, 200], [0, 1.5708, 0]);
     } else if (keyboard.pressed("4")) {
       reiniciaTempo();
       pista.removePista();
       pista.pista4();
-      carro.reset([500, 4, 700], [0, 3.1416, 0]);
+      carro.reset([500, -0.85, 700], [0, 3.1416, 0]);
     }
   }
 }
@@ -195,7 +195,7 @@ function alternarCamera() {
     pista.pista1();
     scene.remove(spotLight);
     scene.add(plane);
-    carro.reset([200, 4, 0], [0, 0, 0]);
+    carro.reset([200, -0.85, 0], [0, 0, 0]);
     message.changeStyle("rgba(255,255,255,0.2)");
     auxCam = 0;
   }
