@@ -245,26 +245,29 @@ function gameplay() {
   }
 }
 
-function handleClasses() {
-  velocidadeAtual = parseInt(carro.moveDistance * 100, 10);
+function handleClasses(velocidadeAtual) {
+  velocidadeAtual = parseInt(velocidadeAtual * 100, 10);
   velocidadeAtual = Math.ceil(velocidadeAtual / 10) * 10;
-  velocidadeAtual = Math.abs(velocidadeAtual);
+  console.log(velocidadeAtual);
 
-  let novaClasse = "velocidade-" + velocidadeAtual;
-  let classeAnterior = "velocidade-" + velocidadeAnterior;
-  let el = document.getElementsByClassName("seta-wrapper")[0];
-  if (el.classList.contains(classeAnterior)) {
-    el.classList.remove(classeAnterior);
-    el.classList.add(novaClasse);
+  if (velocidadeAtual <= 180) {
+    let novaClasse = "velocidade-" + velocidadeAtual;
+    let classeAnterior = "velocidade-" + velocidadeAnterior;
+    let el = document.getElementsByClassName("seta-wrapper")[0];
+    if (el.classList.contains(classeAnterior)) {
+      el.classList.remove(classeAnterior);
+      el.classList.add(novaClasse);
+    }
+    velocidadeAnterior = velocidadeAtual;
   }
-  velocidadeAnterior = velocidadeAtual;
 }
 
 function handleCores() {
   let velocidade = parseInt(carro.moveDistance * 10);
-  // console.log(velocidade);
+  //
   for (let i = 1; i < 20; i++) {
-    console.log(i);
+    // console.log(velocidade);
+    // console.log(i);
     // Alterado o limite para 7 para coincidir com o número de classes
     let classeTemporaria = "escala-velocimetro-" + i;
     let el = document.getElementsByClassName(classeTemporaria)[0];
@@ -321,11 +324,12 @@ function controlledRender() {
 
     gameplay();
     // #############################################################  VELOCÍMETRO  #####################################################
-    if (carro.moveDistance * 100 < 180) {
+    if (carro.moveDistance * 100 < 200) {
       if (carro.moveDistance <= 0) {
         velocidadeAtual = Math.abs(carro.moveDistance);
       }
-      handleClasses();
+      velocidadeAtual = Math.abs(carro.moveDistance);
+      handleClasses(velocidadeAtual);
       if (carro.moveDistance * 10 > 1) handleCores();
     }
 
