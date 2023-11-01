@@ -112,6 +112,8 @@ const velocimetro = new Velocimetro("Velocímetro");
 var velocidadeAtual = carro.moveDistance;
 var velocidadeAnterior = 0;
 var escalaAtual = 1;
+var vetorCores = new Array(19);
+var vetorVelocidade = new Array(19);
 //#########################################  VELOCÍMETRO  #####################################
 
 const pista = new Pista(scene);
@@ -244,7 +246,7 @@ function gameplay() {
 }
 
 function handleClasses() {
-  velocidadeAtual = parseInt((carro.moveDistance * 100).toFixed(2), 10);
+  velocidadeAtual = parseInt(carro.moveDistance * 100, 10);
   velocidadeAtual = Math.ceil(velocidadeAtual / 10) * 10;
   velocidadeAtual = Math.abs(velocidadeAtual);
 
@@ -256,6 +258,25 @@ function handleClasses() {
     el.classList.add(novaClasse);
   }
   velocidadeAnterior = velocidadeAtual;
+}
+
+function handleCores() {
+  let velocidade = parseInt(carro.moveDistance * 10);
+  // console.log(velocidade);
+  for (let i = 1; i < 20; i++) {
+    console.log(i);
+    // Alterado o limite para 7 para coincidir com o número de classes
+    let classeTemporaria = "escala-velocimetro-" + i;
+    let el = document.getElementsByClassName(classeTemporaria)[0];
+
+    if (el) {
+      if (velocidade == i) {
+        el.classList.add("ativado");
+      } else {
+        el.classList.remove("ativado");
+      }
+    }
+  }
 }
 
 function controlledRender() {
@@ -305,6 +326,7 @@ function controlledRender() {
         velocidadeAtual = Math.abs(carro.moveDistance);
       }
       handleClasses();
+      if (carro.moveDistance * 10 > 1) handleCores();
     }
 
     // if (carro.moveDistance * 100 < 0) {
