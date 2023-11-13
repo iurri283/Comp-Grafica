@@ -667,6 +667,7 @@ export function addDefaultCubeAndSphere(scene) {
 /**
  * Create a simple XZ plane slightly translated in Y negative.
  */
+
 export function createGroundPlaneXZ(
   width,
   height,
@@ -674,7 +675,7 @@ export function createGroundPlaneXZ(
   heightSegments = 10,
   gcolor = null
 ) {
-  if (!gcolor) gcolor = "rgb(200,200,200)";
+  // if (!gcolor) gcolor = "rgb(200,200,200)";
   let planeGeometry = new THREE.PlaneGeometry(
     width,
     height,

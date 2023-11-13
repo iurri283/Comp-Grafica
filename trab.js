@@ -97,8 +97,30 @@ window.addEventListener(
   false
 );
 
+let loader = new THREE.TextureLoader();
+
+let planoMaterial = [
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //x+
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //y+
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z+
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+];
+
+let planoMaterial1 = [
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //x+
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //y+
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z+
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+];
+
+let cubeGeometry = new THREE.BoxGeometry(1000, 0.1, 1000);
+
 // create the ground plane
-let plane = createGroundPlaneXZ(1000000, 1000000);
+let plane = new THREE.Mesh(cubeGeometry, planoMaterial);
 plane.receiveShadow = true;
 scene.add(plane);
 
@@ -176,6 +198,23 @@ function alternarPista() {
       carro.reset([500, -0.85, 700], [0, 3.1416, 0]);
     }
   }
+}
+
+// Function to set a texture
+function setMaterial(
+  file,
+  repeatU = 1,
+  repeatV = 1,
+  color = "rgb(255,255,255)"
+) {
+  let mat = new THREE.MeshBasicMaterial({
+    map: loader.load(file),
+    color: color,
+  });
+  mat.map.wrapS = mat.map.wrapT = THREE.RepeatWrapping;
+  mat.map.minFilter = mat.map.magFilter = THREE.LinearFilter;
+  mat.map.repeat.set(repeatU, repeatV);
+  return mat;
 }
 
 let spotLight = new THREE.SpotLight(0xffffff);

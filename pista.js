@@ -15,6 +15,39 @@ export class Pista {
     this.contador_blocos = 0;
     this.estaNaPista = true;
     this.scene = scene;
+    this.loader = new THREE.TextureLoader();
+
+    this.pistaMaterials1 = [
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x-   Texture + color
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+    ];
+
+    this.pistaMaterials2 = [
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x-   Texture + color
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+    ];
+  }
+
+  // Function to set a texture
+  setMaterial(file, repeatU = 1, repeatV = 1, color = "rgb(255,255,255)") {
+    let mat = new THREE.MeshBasicMaterial({
+      map: this.loader.load(file),
+      color: color,
+    });
+    mat.map.wrapS = mat.map.wrapT = THREE.RepeatWrapping;
+    mat.map.minFilter = mat.map.magFilter = THREE.LinearFilter;
+    mat.map.repeat.set(repeatU, repeatV);
+    return mat;
   }
 
   pista1() {
@@ -49,7 +82,7 @@ export class Pista {
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPista
+          this.pistaMaterials1
         );
       }
       this.pistaFormada[i].receiveShadow = true;
@@ -104,7 +137,7 @@ export class Pista {
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPista
+          this.pistaMaterials1
         );
       }
       this.pistaFormada[i].receiveShadow = true;
