@@ -27,14 +27,24 @@ export class Pista {
       this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
     ];
 
+    this.pistaMaterials1_largada = [
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //x-   Texture + color
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //z-
+    ];
+
     this.pistaMaterials2 = [
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x+
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x-   Texture + color
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //y+
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z+
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //x-   Texture + color
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z-
     ];
   }
 
@@ -77,8 +87,9 @@ export class Pista {
       if (i == 7) {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPistaInicio
+          this.pistaMaterials1_largada
         );
+        this.pistaFormada[i].rotateY(1.5708);
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
@@ -137,7 +148,7 @@ export class Pista {
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.pistaMaterials1
+          this.pistaMaterials2
         );
       }
       this.pistaFormada[i].receiveShadow = true;

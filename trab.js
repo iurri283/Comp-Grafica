@@ -37,10 +37,10 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 ambientLight = new THREE.AmbientLight("rgb(160,160,160)");
 scene.add(ambientLight);
 camera = new THREE.PerspectiveCamera(
-  30,
+  45,
   window.innerWidth / window.innerHeight,
   0.1,
-  1000
+  4000
 );
 dirLight = new THREE.DirectionalLight("rgb(255,255,255)");
 dirLight.castShadow = true;
@@ -77,8 +77,38 @@ camTerceiraPessoa = new THREE.PerspectiveCamera(
   30,
   window.innerWidth / window.innerHeight,
   0.1,
-  1000
+  4000
 );
+
+//declaracao skybox
+
+var faceArray = [];
+    var textureFront = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_ft.jpg');
+    var textureBack = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_bk.jpg');
+    var textureTop = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_up.jpg');
+    // textureTop.rotation = THREE.MathUtils.degToRad(-90);
+    // textureTop.center = new THREE.Vector2(0.5, 0.5);
+    var textureBottom = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_dn.jpg');
+    // textureBottom.rotation = THREE.MathUtils.degToRad(-90);
+    // textureBottom.center = new THREE.Vector2(0.5, 0.5);
+    var textureRight = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_rt.jpg');
+    var textureLeft = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_lf.jpg');
+      
+    faceArray.push(new THREE.MeshBasicMaterial( { map: textureFront }));
+    faceArray.push(new THREE.MeshBasicMaterial( { map: textureBack }));
+    faceArray.push(new THREE.MeshBasicMaterial( { map: textureTop }));
+    faceArray.push(new THREE.MeshBasicMaterial( { map: textureBottom }));
+    faceArray.push(new THREE.MeshBasicMaterial( { map: textureRight }));
+    faceArray.push(new THREE.MeshBasicMaterial( { map: textureLeft }));
+       
+    for (var i = 0; i < 6; i++)
+      faceArray[i].side = THREE.BackSide;
+       
+    var skyboxGeometry = new THREE.BoxGeometry( 1500, 1500, 1500);
+    var skybox = new THREE.Mesh( skyboxGeometry, faceArray );
+    // skybox.rotateX(degreesToRadians(90));
+    scene.add( skybox );
+    skybox.position.set(200,0,200);
 
 var message = new BoxSuperior("");
 // message.changeStyle("gray");
@@ -100,27 +130,28 @@ window.addEventListener(
 let loader = new THREE.TextureLoader();
 
 let planoMaterial = [
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //x+
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //y+
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z+
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //x+
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //y+
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z+
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
 ];
 
 let planoMaterial1 = [
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //x+
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //y+
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z+
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
-  setMaterial("../assets/textures/grass.jpg", 10, 10), //z-
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //x+
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //y+
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z+
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
 ];
 
-let cubeGeometry = new THREE.BoxGeometry(1000, 0.1, 1000);
+let cubeGeometry = new THREE.BoxGeometry(10000, 0.1, 10000);
 
 // create the ground plane
 let plane = new THREE.Mesh(cubeGeometry, planoMaterial);
+plane.position.set(200,0,200);
 plane.receiveShadow = true;
 scene.add(plane);
 
@@ -462,7 +493,7 @@ function controlledRender() {
     vcHeidth - 1
   ); // Set scissor with the same size as the viewport - 1
   renderer.setScissorTest(true); // Enable scissor to paint only the scissor are (i.e., the small viewport)
-  renderer.setClearColor("rgb(60, 50, 150)"); // Use a darker clear color in the small viewport
+  // renderer.setClearColor("rgb(60, 50, 150)"); // Use a darker clear color in the small viewport
   if (auxCam != 2) renderer.render(scene, virtualCamera); // Render scene of the virtual camera
 }
 

@@ -445,7 +445,7 @@ export function initCamera(initialPosition) {
     45,
     window.innerWidth / window.innerHeight,
     0.1,
-    1000
+    4000
   );
   camera.position.copy(position);
   camera.lookAt(new THREE.Vector3(0, 0, 0)); // or camera.lookAt(0, 0, 0);
