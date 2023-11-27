@@ -12,7 +12,6 @@ import {
   BoxSuperior,
   Velocimetro,
   onWindowResize,
-  createGroundPlaneXZ,
 } from "./libs/util/util.js";
 
 import { Carro } from "./carro.js";
@@ -83,32 +82,43 @@ camTerceiraPessoa = new THREE.PerspectiveCamera(
 //declaracao skybox
 
 var faceArray = [];
-    var textureFront = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_ft.jpg');
-    var textureBack = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_bk.jpg');
-    var textureTop = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_up.jpg');
-    // textureTop.rotation = THREE.MathUtils.degToRad(-90);
-    // textureTop.center = new THREE.Vector2(0.5, 0.5);
-    var textureBottom = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_dn.jpg');
-    // textureBottom.rotation = THREE.MathUtils.degToRad(-90);
-    // textureBottom.center = new THREE.Vector2(0.5, 0.5);
-    var textureRight = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_rt.jpg');
-    var textureLeft = new THREE.TextureLoader().load( '../assets/textures/cube/sky/yonder_lf.jpg');
-      
-    faceArray.push(new THREE.MeshBasicMaterial( { map: textureFront }));
-    faceArray.push(new THREE.MeshBasicMaterial( { map: textureBack }));
-    faceArray.push(new THREE.MeshBasicMaterial( { map: textureTop }));
-    faceArray.push(new THREE.MeshBasicMaterial( { map: textureBottom }));
-    faceArray.push(new THREE.MeshBasicMaterial( { map: textureRight }));
-    faceArray.push(new THREE.MeshBasicMaterial( { map: textureLeft }));
-       
-    for (var i = 0; i < 6; i++)
-      faceArray[i].side = THREE.BackSide;
-       
-    var skyboxGeometry = new THREE.BoxGeometry( 1500, 1500, 1500);
-    var skybox = new THREE.Mesh( skyboxGeometry, faceArray );
-    // skybox.rotateX(degreesToRadians(90));
-    scene.add( skybox );
-    skybox.position.set(200,0,200);
+var textureFront = new THREE.TextureLoader().load(
+  "../assets/textures/cube/sky/yonder_ft.jpg"
+);
+var textureBack = new THREE.TextureLoader().load(
+  "../assets/textures/cube/sky/yonder_bk.jpg"
+);
+var textureTop = new THREE.TextureLoader().load(
+  "../assets/textures/cube/sky/yonder_up.jpg"
+);
+// textureTop.rotation = THREE.MathUtils.degToRad(-90);
+// textureTop.center = new THREE.Vector2(0.5, 0.5);
+var textureBottom = new THREE.TextureLoader().load(
+  "../assets/textures/cube/sky/yonder_dn.jpg"
+);
+// textureBottom.rotation = THREE.MathUtils.degToRad(-90);
+// textureBottom.center = new THREE.Vector2(0.5, 0.5);
+var textureRight = new THREE.TextureLoader().load(
+  "../assets/textures/cube/sky/yonder_rt.jpg"
+);
+var textureLeft = new THREE.TextureLoader().load(
+  "../assets/textures/cube/sky/yonder_lf.jpg"
+);
+
+faceArray.push(new THREE.MeshBasicMaterial({ map: textureFront }));
+faceArray.push(new THREE.MeshBasicMaterial({ map: textureBack }));
+faceArray.push(new THREE.MeshBasicMaterial({ map: textureTop }));
+faceArray.push(new THREE.MeshBasicMaterial({ map: textureBottom }));
+faceArray.push(new THREE.MeshBasicMaterial({ map: textureRight }));
+faceArray.push(new THREE.MeshBasicMaterial({ map: textureLeft }));
+
+for (var i = 0; i < 6; i++) faceArray[i].side = THREE.BackSide;
+
+var skyboxGeometry = new THREE.BoxGeometry(1500, 1500, 1500);
+var skybox = new THREE.Mesh(skyboxGeometry, faceArray);
+// skybox.rotateX(degreesToRadians(90));
+scene.add(skybox);
+skybox.position.set(200, 0, 200);
 
 var message = new BoxSuperior("");
 // message.changeStyle("gray");
@@ -139,21 +149,22 @@ let planoMaterial = [
 ];
 
 let planoMaterial1 = [
-  setMaterial("../assets/textures/grass.jpg", 100, 100), //x+
-  setMaterial("../assets/textures/grass.jpg", 100, 100), //y+
-  setMaterial("../assets/textures/grass.jpg", 100, 100), //z+
-  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
-  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
-  setMaterial("../assets/textures/grass.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/sand.jpg", 100, 100), //x+
+  setMaterial("../assets/textures/sand.jpg", 100, 100), //y+
+  setMaterial("../assets/textures/sand.jpg", 100, 100), //z+
+  setMaterial("../assets/textures/sand.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/sand.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/sand.jpg", 100, 100), //z-
 ];
 
-let cubeGeometry = new THREE.BoxGeometry(10000, 0.1, 10000);
-
-// create the ground plane
-let plane = new THREE.Mesh(cubeGeometry, planoMaterial);
-plane.position.set(200,0,200);
-plane.receiveShadow = true;
-scene.add(plane);
+let planoMaterial2 = [
+  setMaterial("../assets/textures/intertravado.jpg", 100, 100), //x+
+  setMaterial("../assets/textures/intertravado.jpg", 100, 100), //y+
+  setMaterial("../assets/textures/intertravado.jpg", 100, 100), //z+
+  setMaterial("../assets/textures/intertravado.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/intertravado.jpg", 100, 100), //z-
+  setMaterial("../assets/textures/intertravado.jpg", 100, 100), //z-
+];
 
 //##############################################-- SPOLIGHT MODO INSPEÇÃO --###############################################
 
@@ -173,12 +184,19 @@ const pista = new Pista(scene);
 var inicio = 0;
 var auxCam = 0;
 pista.pista1();
+let cubeGeometry = new THREE.BoxGeometry(10000, 0.1, 10000);
+
+let plane = new THREE.Mesh(cubeGeometry, planoMaterial);
 let lookAtVec = new THREE.Vector3(
   carro.esqueletoCarro.position.x,
   carro.esqueletoCarro.position.y,
   carro.esqueletoCarro.position.z
 );
 // virtualCamera.lookAt(lookAtVec);
+
+plane.position.set(200, 0, 200);
+plane.receiveShadow = true;
+scene.add(plane);
 
 render();
 
@@ -360,24 +378,51 @@ function controlledRender() {
       carro.esqueletoCarro.position.z
     );
   if (auxCam == 0) {
-    if (pista.numeroPista == 1 || pista.numeroPista == 2)
+    if (pista.numeroPista == 1 || pista.numeroPista == 2) {
       camera.position.set(
         carro.esqueletoCarro.position.x - 100,
         50,
         carro.esqueletoCarro.position.z - 80
       );
-    else if (pista.numeroPista == 3)
+      if (pista.numeroPista == 2) {
+        // create the ground plane
+        scene.remove(plane);
+        plane = new THREE.Mesh(cubeGeometry, planoMaterial1);
+        plane.position.set(200, 0, 200);
+        plane.receiveShadow = true;
+        scene.add(plane);
+      } else if (pista.numeroPista == 1) {
+        // create the ground plane
+        scene.remove(plane);
+        plane = new THREE.Mesh(cubeGeometry, planoMaterial);
+        plane.position.set(200, 0, 200);
+        plane.receiveShadow = true;
+        scene.add(plane);
+      }
+    } else if (pista.numeroPista == 3) {
       camera.position.set(
         carro.esqueletoCarro.position.x - 100,
         50,
         carro.esqueletoCarro.position.z + 80
       );
-    else if (pista.numeroPista == 4)
+
+      scene.remove(plane);
+      plane = new THREE.Mesh(cubeGeometry, planoMaterial2);
+      plane.position.set(200, 0, 200);
+      plane.receiveShadow = true;
+      scene.add(plane);
+    } else if (pista.numeroPista == 4) {
       camera.position.set(
         carro.esqueletoCarro.position.x + 100,
         50,
         carro.esqueletoCarro.position.z + 80
       );
+      scene.remove(plane);
+      plane = new THREE.Mesh(cubeGeometry, planoMaterial1);
+      plane.position.set(200, 0, 200);
+      plane.receiveShadow = true;
+      scene.add(plane);
+    }
     dirLight.target = carro.esqueletoCarro;
     // camera.position.copy(carro.esqueletoCarro.position+obj.position);
     camera.lookAt(carro.esqueletoCarro.position);

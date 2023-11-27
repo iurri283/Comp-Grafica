@@ -19,7 +19,7 @@ export class Pista {
 
     this.pistaMaterials1 = [
       this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x+
-      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x-   Texture + color
+      this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x-
       this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //y+
       this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z+
       this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //z-
@@ -29,7 +29,7 @@ export class Pista {
 
     this.pistaMaterials1_largada = [
       this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //x+
-      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //x-   Texture + color
+      this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //x-
       this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //y+
       this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //z+
       this.setMaterial("../assets/textures/asfalto_largada.jpg", 1, 1), //z-
@@ -38,13 +38,23 @@ export class Pista {
     ];
 
     this.pistaMaterials2 = [
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //x+
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //x-   Texture + color
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //y+
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z+
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z-
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z-
-      this.setMaterial("../assets/textures/solo1.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //x+
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //x-
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //y+
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //z+
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //z-
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //z-
+      this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //z-
+    ];
+
+    this.pistaMaterials3 = [
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //x+
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //x-
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //y+
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z+
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z-
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z-
+      this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z-
     ];
   }
 
@@ -150,6 +160,7 @@ export class Pista {
           this.cubeGeometry,
           this.pistaMaterials2
         );
+        this.pistaFormada[i].rotateY(1.5708);
       }
       this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
@@ -209,7 +220,7 @@ export class Pista {
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPista
+          this.pistaMaterials3
         );
       }
       this.pistaFormada[i].receiveShadow = true;
@@ -254,12 +265,13 @@ export class Pista {
       if (i == 7) {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPistaInicio
+          this.pistaMaterials1_largada
         );
+        this.pistaFormada[i].rotateY(1.5708);
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPista
+          this.pistaMaterials1
         );
       }
       this.pistaFormada[i].receiveShadow = true;
@@ -269,7 +281,6 @@ export class Pista {
   }
 
   removePista() {
-    // console.log(this.pistaFormada.length);
     for (let i = 0; i < this.pistaFormada.length; i++) {
       this.scene.remove(this.pistaFormada[i]);
     }
@@ -339,7 +350,6 @@ export class Pista {
   }
 
   volta() {
-    // console.log(this.checkpoint);
     if (this.numeroPista == 1 || this.numeroPista == 2) {
       for (let i = 0; i < 16; i++) {
         if (!this.checkpoint[i]) {
@@ -351,7 +361,6 @@ export class Pista {
       }
       return true;
     } else if (this.numeroPista == 3) {
-      // console.log(this.contador_blocos);
       if (this.checkpoint[7] && this.contador_blocos >= 29) {
         for (let i = 0; i < 37; i++) {
           this.checkpoint[i] = false;
@@ -361,7 +370,6 @@ export class Pista {
       }
       return false;
     } else if (this.numeroPista == 4) {
-      // console.log(this.contador_blocos);
       if (this.checkpoint[7] && this.contador_blocos >= 25) {
         for (let i = 0; i < 26; i++) {
           this.checkpoint[i] = false;
