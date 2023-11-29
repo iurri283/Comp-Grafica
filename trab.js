@@ -206,7 +206,7 @@ function reiniciaTempo() {
   tVolta.elapsedTime = 0;
   tTotal.elapsedTime = 0;
   inicio = 0;
-  voltas=0;
+  voltas = 0;
 }
 
 function showInformation() {
@@ -485,8 +485,14 @@ function controlledRender() {
 
     gameplay();
 
-    if (carro.moveDistance * 100 < 0) {
-      carro.moveDistance = 0;
+    // #############################################################  VELOCÍMETRO  #####################################################
+    if (carro.moveDistance * 100 < 200) {
+      if (carro.moveDistance <= 0) {
+        velocidadeAtual = Math.abs(carro.moveDistance);
+      }
+      velocidadeAtual = Math.abs(carro.moveDistance);
+      handleClasses(velocidadeAtual);
+      if (carro.moveDistance * 10 > 1) handleCores();
     }
 
     velocimetro.changeMessage(

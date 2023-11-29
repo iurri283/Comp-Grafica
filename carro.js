@@ -56,7 +56,6 @@ export class Carro {
       this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //z-
     ];
 
-
     this.moveDistance = 0.0;
     this.velMaxima = 2.0;
     this.camera = camera;
@@ -326,8 +325,6 @@ export class Carro {
       transparent: true,
     });
 
-
-
     materialEsqueletoCarro = new THREE.MeshPhongMaterial({
       color: "rgb(126, 132, 132)",
       opacity: 1,
@@ -463,17 +460,16 @@ export class Carro {
 
     this.esqueletoCarro.position.set(200.0, -0.85, 0.0);
 
-    this.cubo.position.set(-4.5,3, 5.459);
+    this.cubo.position.set(-4.5, 3, 5.459);
     this.cubo.rotateX(1.5708);
 
-    this.cubo2.position.set(-4.5,3, 0.52);
+    this.cubo2.position.set(-4.5, 3, 0.52);
     this.cubo2.rotateX(-1.5708);
     this.cubo2.rotateZ(3.1416);
 
-    this.cubo3.position.set(-8.3,4.457, 3);
+    this.cubo3.position.set(-8.3, 4.457, 3);
     this.cubo3.rotateY(1.5708);
     this.cubo3.rotateX(-0.23);
-
 
     this.esqueletoCarro.add(eixoDianteiro);
     this.esqueletoCarro.add(eixoTraseiro);
@@ -606,6 +602,8 @@ export class Carro {
       this.rt1.rotateZ(-this.moveDistance);
       this.rt2.rotateZ(-this.moveDistance);
 
+      console.log(Math.round(this.moveDistance * 100) / 100);
+
       if (Math.round(this.moveDistance * 100) / 100 > 0) {
         this.moveDistance -= 0.005;
         if (auxCam != 2) {
@@ -614,8 +612,10 @@ export class Carro {
           );
         }
       } else if (Math.round(this.moveDistance * 100) / 100 <= 0) {
-        if (Math.round(this.moveDistance * 100) / 100 > -this.velMaxima)
+        if (Math.round(this.moveDistance * 100) / 100 > -this.velMaxima) {
           this.moveDistance -= 0.005;
+        }
+
         if (auxCam != 2) {
           this.esqueletoCarro.translateX(
             Math.round(this.moveDistance * 100) / 100
