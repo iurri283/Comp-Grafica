@@ -6,7 +6,10 @@ export class Pista {
     this.materialPista = new THREE.MeshPhongMaterial({ color: "orange" });
     this.materialPistaInicio = new THREE.MeshPhongMaterial({ color: "blue" });
     this.cubeGeometry = new THREE.BoxGeometry(100, 1, 100);
+    this.coneGeometry = new THREE.ConeGeometry(4, 12, 20);
     this.pistaFormada = new Array(37);
+    this.cubos = new Array(37);
+    this.cones = new Array(37);
     this.checkpoint = new Array(37);
     for (let i = 0; i < this.checkpoint.length; i++) {
       this.checkpoint[i] = false;
@@ -16,6 +19,29 @@ export class Pista {
     this.estaNaPista = true;
     this.scene = scene;
     this.loader = new THREE.TextureLoader();
+
+    this.cuboMaterial = [
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //x-
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/crate.jpg", 1, 1), //z-
+    ];
+
+    this.coneMaterial = [
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //x+
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //x-
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //y+
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //z+
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/cone.png", 1, 1), //z-
+    ];
+
+    this.geometriaCubo = new THREE.BoxGeometry( 10,10,10 );
+
 
     this.pistaMaterials1 = [
       this.setMaterial("../assets/textures/asfalto.jpg", 1, 1), //x+
@@ -47,6 +73,16 @@ export class Pista {
       this.setMaterial("../assets/textures/brickwall.jpg", 2, 2), //z-
     ];
 
+    this.pistaMaterials2_largada = [
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //x-
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/brickwall_largada.jpg", 1, 1), //z-
+    ];
+
     this.pistaMaterials3 = [
       this.setMaterial("../assets/textures/stone.jpg", 2, 2), //x+
       this.setMaterial("../assets/textures/stone.jpg", 2, 2), //x-
@@ -55,6 +91,16 @@ export class Pista {
       this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z-
       this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z-
       this.setMaterial("../assets/textures/stone.jpg", 2, 2), //z-
+    ];
+
+    this.pistaMaterials3_largada = [
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //x+
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //x-
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //y+
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //z+
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/stone_largada.jpg", 1, 1), //z-
     ];
   }
 
@@ -99,16 +145,30 @@ export class Pista {
           this.cubeGeometry,
           this.pistaMaterials1_largada
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
         this.pistaFormada[i].rotateY(1.5708);
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
           this.pistaMaterials1
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
       }
       this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
+      const numAleatorioX = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZ = Math.floor(Math.random() * 101) - 50;
+      this.cubos[i].position.set(vet[i][0]+numAleatorioX, vet[i][1]+6, vet[i][2] + numAleatorioZ);
+
+      const numAleatorioXCone = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZCone = Math.floor(Math.random() * 101) - 50;
+      this.cones[i].position.set(vet[i][0]+numAleatorioXCone, vet[i][1]+7, vet[i][2] + numAleatorioZCone);
+
       this.scene.add(this.pistaFormada[i]);
+      this.scene.add(this.cubos[i]);
+      this.scene.add(this.cones[i]);
     }
     // for (let i = 0; i < 5; i++) {
     //     for (let j = 0; j < 5; j++) {
@@ -153,18 +213,34 @@ export class Pista {
       if (i == 7) {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPistaInicio
+          this.pistaMaterials2_largada
         );
+        this.pistaFormada[i].rotateY(-1.5708);
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
+
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
           this.pistaMaterials2
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
         this.pistaFormada[i].rotateY(1.5708);
       }
       this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
+      const numAleatorioX = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZ = Math.floor(Math.random() * 101) - 50;
+      this.cubos[i].position.set(vet[i][0]+numAleatorioX, vet[i][1]+6, vet[i][2] + numAleatorioZ);
+
+      const numAleatorioXCone = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZCone = Math.floor(Math.random() * 101) - 50;
+      this.cones[i].position.set(vet[i][0]+numAleatorioXCone, vet[i][1]+6, vet[i][2] + numAleatorioZCone);
+
       this.scene.add(this.pistaFormada[i]);
+      this.scene.add(this.cubos[i]);
+      this.scene.add(this.cones[i]);
     }
   }
 
@@ -215,17 +291,31 @@ export class Pista {
       if (i == 7) {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
-          this.materialPistaInicio
+          this.pistaMaterials3_largada
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
           this.pistaMaterials3
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
       }
       this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
+      const numAleatorioX = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZ = Math.floor(Math.random() * 101) - 50;
+      this.cubos[i].position.set(vet[i][0]+numAleatorioX, vet[i][1]+6, vet[i][2] + numAleatorioZ);
+
+      const numAleatorioXCone = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZCone = Math.floor(Math.random() * 101) - 50;
+      this.cones[i].position.set(vet[i][0]+numAleatorioXCone, vet[i][1]+6, vet[i][2] + numAleatorioZCone);
+
       this.scene.add(this.pistaFormada[i]);
+      this.scene.add(this.cubos[i]);
+      this.scene.add(this.cones[i]);
     }
   }
 
@@ -267,22 +357,38 @@ export class Pista {
           this.cubeGeometry,
           this.pistaMaterials1_largada
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
         this.pistaFormada[i].rotateY(1.5708);
       } else {
         this.pistaFormada[i] = new THREE.Mesh(
           this.cubeGeometry,
           this.pistaMaterials1
         );
+        this.cubos[i] = new THREE.Mesh( this.geometriaCubo, this.cuboMaterial );
+        this.cones[i] = new THREE.Mesh( this.coneGeometry, this.coneMaterial );
       }
       this.pistaFormada[i].receiveShadow = true;
       this.pistaFormada[i].position.set(vet[i][0], vet[i][1], vet[i][2]); // Altere as posições conforme necessário
+      const numAleatorioX = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZ = Math.floor(Math.random() * 101) - 50;
+      this.cubos[i].position.set(vet[i][0]+numAleatorioX, vet[i][1]+6, vet[i][2] + numAleatorioZ);
+
+      const numAleatorioXCone = Math.floor(Math.random() * 101) - 50;
+      const numAleatorioZCone = Math.floor(Math.random() * 101) - 50;
+      this.cones[i].position.set(vet[i][0]+numAleatorioXCone, vet[i][1]+6, vet[i][2] + numAleatorioZCone);
+
       this.scene.add(this.pistaFormada[i]);
+      this.scene.add(this.cubos[i]);
+      this.scene.add(this.cones[i]);
     }
   }
 
   removePista() {
     for (let i = 0; i < this.pistaFormada.length; i++) {
       this.scene.remove(this.pistaFormada[i]);
+      this.scene.remove(this.cubos[i]);
+      this.scene.remove(this.cones[i]);
     }
   }
   inPista(posicaoCarro) {

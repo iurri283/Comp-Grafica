@@ -30,13 +30,32 @@ export class Carro {
     this.loader = new THREE.TextureLoader();
 
     this.carroMaterial = [
-      this.setMaterial("../assets/textures/brickwall.jpg", 1, 1), //x+
-      this.setMaterial("../assets/textures/brickwall.jpg", 1, 1), //y+
-      this.setMaterial("../assets/textures/brickwall.jpg", 1, 1), //z+
-      this.setMaterial("../assets/textures/brickwall.jpg", 1, 1), //z-
-      this.setMaterial("../assets/textures/brickwall.jpg", 1, 1), //z-
-      this.setMaterial("../assets/textures/brickwall.jpg", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe.png", 1, 1), //x+
+      this.setMaterial("../assets/textures/peixe.png", 1, 1), //y+
+      this.setMaterial("../assets/textures/peixe.png", 1, 1), //z+
+      this.setMaterial("../assets/textures/peixe.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe.png", 1, 1), //z-
     ];
+
+    this.carroMaterial2 = [
+      this.setMaterial("../assets/textures/peixe_2.png", 1, 1), //x+
+      this.setMaterial("../assets/textures/peixe_2.png", 1, 1), //y+
+      this.setMaterial("../assets/textures/peixe_2.png", 1, 1), //z+
+      this.setMaterial("../assets/textures/peixe_2.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe_2.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe_2.png", 1, 1), //z-
+    ];
+
+    this.carroMaterial3 = [
+      this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //x+
+      this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //y+
+      this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //z+
+      this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //z-
+      this.setMaterial("../assets/textures/peixe_3.png", 1, 1), //z-
+    ];
+
 
     this.moveDistance = 0.0;
     this.velMaxima = 2.0;
@@ -258,7 +277,6 @@ export class Carro {
       materialFarois_1,
       materialFarois_2,
       materialFarois_3,
-      materialVidro1,
       materialEsqueletoCarro;
 
     materialEixo = new THREE.MeshLambertMaterial({
@@ -308,20 +326,19 @@ export class Carro {
       transparent: true,
     });
 
-    materialVidro1 = new THREE.MeshPhongMaterial({
-      color: "rgb(255,255,255)",
-      opacity: 1,
-      transparent: true,
-    });
+
 
     materialEsqueletoCarro = new THREE.MeshPhongMaterial({
       color: "rgb(126, 132, 132)",
       opacity: 1,
       transparent: true,
     });
-    let cubeGeometry = new THREE.BoxGeometry(4, 0.1, 4);
+    let cubeGeometry = new THREE.BoxGeometry(2, 0.1, 2);
+    let cubeGeometry2 = new THREE.BoxGeometry(3, 0.1, 3);
 
-    let cubo = new THREE.Mesh(cubeGeometry, this.carroMaterial);
+    this.cubo = new THREE.Mesh(cubeGeometry, this.carroMaterial);
+    this.cubo2 = new THREE.Mesh(cubeGeometry, this.carroMaterial2);
+    this.cubo3 = new THREE.Mesh(cubeGeometry2, this.carroMaterial3);
 
     //#################################################-- EIXOS E RODAS DIANTEIROS --##############################
     //criando rodas dianteiras
@@ -441,13 +458,28 @@ export class Carro {
     this.esqueletoCarro.add(this.criaObjeto(vidro1, materialVidro));
     this.esqueletoCarro.add(this.criaObjeto(vidro2, materialVidro));
     this.esqueletoCarro.add(this.criaObjeto(vidro3, materialVidro));
-    this.esqueletoCarro.add(this.criaObjeto(vidro4, materialVidro1));
+    this.esqueletoCarro.add(this.criaObjeto(vidro4, materialVidro));
     this.esqueletoCarro.add(this.criaObjeto(vidro5, materialVidro));
 
     this.esqueletoCarro.position.set(200.0, -0.85, 0.0);
 
+    this.cubo.position.set(-4.5,3, 5.459);
+    this.cubo.rotateX(1.5708);
+
+    this.cubo2.position.set(-4.5,3, 0.52);
+    this.cubo2.rotateX(-1.5708);
+    this.cubo2.rotateZ(3.1416);
+
+    this.cubo3.position.set(-8.3,4.457, 3);
+    this.cubo3.rotateY(1.5708);
+    this.cubo3.rotateX(-0.23);
+
+
     this.esqueletoCarro.add(eixoDianteiro);
     this.esqueletoCarro.add(eixoTraseiro);
+    this.esqueletoCarro.add(this.cubo);
+    this.esqueletoCarro.add(this.cubo2);
+    this.esqueletoCarro.add(this.cubo3);
 
     scene.add(this.esqueletoCarro);
 

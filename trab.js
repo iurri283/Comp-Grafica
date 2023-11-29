@@ -206,6 +206,7 @@ function reiniciaTempo() {
   tVolta.elapsedTime = 0;
   tTotal.elapsedTime = 0;
   inicio = 0;
+  voltas=0;
 }
 
 function showInformation() {
